@@ -16,6 +16,23 @@ For Lisp:
   * cl-cffi
   * cl-alexandria
   * cl-babel
+  * cl-asdf
+  * cl-launch
 
 For libvirt
   * libvirt (>= 1.2)
+
+
+Install
+-----------------------------
+
+To install Lispvirt into the correct place, use the commands provided by Makefile.
+
+    $ sudo make install
+
+If you decided to clean Lispvirt from the system, there is a clean option to do it.
+
+    $ sudo make clean
+
+The install process will add the libraries into the directory used by Common Lisp to load its modules using [cl-asdf](https://common-lisp.net/project/asdf/).
+
