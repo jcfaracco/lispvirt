@@ -11,3 +11,13 @@ clean:
 	@echo Removing files from system.
 	@rm -rf ${CLISP_DIR}/source/lispvirt/ ${CLISP_DIR}/systems/lispvirt.asd
 	@echo Done!
+
+install_tests:
+	@echo Installing Lispvirt test module.
+	@cp -rf tests ${CLISP_DIR}/source/lispvirt/
+	@echo Linking test libraries.
+	@ln -sf ${CLISP_DIR}/source/lispvirt/tests/lispvirt-tests.asd ${CLISP_DIR}/systems/
+	@echo Done!
+
+
+
