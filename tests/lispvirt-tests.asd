@@ -4,5 +4,5 @@
 	:version "1.0.0"
 	:license "Public Domain"
 	:components ((:file "lispvirt-tests"))
-	:depends-on (:lispvirt :cffi))
+	:depends-on (lispvirt cffi xlunit))
 
