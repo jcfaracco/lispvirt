@@ -1,9 +1,11 @@
 [Urgent]
 - Do more test cases.
 - Add some missing structures.
+- Add many missing enums.
 - Implement alien functions.
 - Check callback funtions.
 
 [Important]
 - Documentation.
-- Testing
+- Testing.
+- Examples.
