@@ -22,9 +22,22 @@
 (asdf:operate 'asdf:load-op :cffi)
 
 (defpackage #:lispvirt-domain
-  (:use :cl :cffi))
+  (:use :cl :cffi :lispvirt-host :lispvirt-ffi)
+  (:export :virDomainPtr
+	   :virDomainInfoPtr
+	   :virDomainControlInfoPtr
+	   :virDomainBlockStatsPtr
+	   :virDomainInterfaceStatsPtr
+	   :virDomainMemoryStatPtr
+	   :virDomainBlockInfoPtr
+	   :virVcpuInfoPtr
+	   :virDomainStatsRecordPtr
+	   :virDomainBlockJobInfoPtr
+	   :virDomainDiskErrorPtr
+	   :virDomainJobInfoPtr
+	   :virDomainFSInfoPtr))
 
-(in-package :lispvirt-ffi)
+(in-package :lispvirt-domain)
 
 ;; Definitions of strucutres for Domain.
 (defcstruct virDomain)

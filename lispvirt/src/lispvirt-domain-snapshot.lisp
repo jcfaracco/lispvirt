@@ -22,9 +22,10 @@
 (asdf:operate 'asdf:load-op :cffi)
 
 (defpackage #:lispvirt-domain-snapshot
-  (:use :cl :cffi))
+  (:use :cl :cffi :lispvirt-host :lispvirt-domain)
+  (:export :virDomainSnapshot))
 
-(in-package :lispvirt-ffi)
+(in-package :lispvirt-domain-snapshot)
 
 
 ;; Definitions of strucutres for Storage.

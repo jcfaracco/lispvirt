@@ -22,9 +22,10 @@
 (asdf:operate 'asdf:load-op :cffi)
 
 (defpackage #:lispvirt-error
-  (:use :cl :cffi))
+  (:use :cl :cffi :lispvirt-host)
+  (:export virErrorPtr))
 
-(in-package :lispvirt-ffi)
+(in-package :lispvirt-error)
 
 
 ;; Definitions of strucutres for Storage.

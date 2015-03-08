@@ -22,9 +22,9 @@
 (asdf:operate 'asdf:load-op :cffi)
 
 (defpackage #:lispvirt-stream
-  (:use :cl :cffi))
+  (:use :cl :cffi :lispvirt-ffi :lispvirt-host))
 
-(in-package :lispvirt-ffi)
+(in-package :lispvirt-stream)
 
 
 ;; Methods.

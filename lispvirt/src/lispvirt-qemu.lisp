@@ -22,9 +22,9 @@
 (asdf:operate 'asdf:load-op :cffi)
 
 (defpackage #:lispvirt-qemu
-  (:use :cl :cffi))
+  (:use :cl :cffi :lispvirt-host :lispvirt-domain))
 
-(in-package :lispvirt-ffi)
+(in-package :lispvirt-qemu)
 
 
 ;; Methods.

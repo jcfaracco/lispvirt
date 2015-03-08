@@ -22,7 +22,8 @@
 (asdf:operate 'asdf:load-op :cffi)
 
 (defpackage #:lispvirt-ffi
-  (:use :cl :cffi))
+  (:use :cl :cffi)
+  (:export :size_t))
 
 (in-package :lispvirt-ffi)
 

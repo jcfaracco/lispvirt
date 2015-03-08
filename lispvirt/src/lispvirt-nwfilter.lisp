@@ -22,9 +22,10 @@
 (asdf:operate 'asdf:load-op :cffi)
 
 (defpackage #:lispvirt-nwfilter
-  (:use :cl :cffi))
+  (:use :cl :cffi :lispvirt-host)
+  (:export virNWFilterPtr))
 
-(in-package :lispvirt-ffi)
+(in-package :lispvirt-nwfilter)
 
 
 ;; Definitions of strucutres for Storage.

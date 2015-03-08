@@ -22,9 +22,11 @@
 (asdf:operate 'asdf:load-op :cffi)
 
 (defpackage #:lispvirt-nodedev
-  (:use :cl :cffi))
+  (:use :cl :cffi :lispvirt-host)
+  (:export :virNodeDevicePtr
+	   :virConnectListAllNodeDeviceFlags))
 
-(in-package :lispvirt-ffi)
+(in-package :lispvirt-nodedev)
 
 
 ;; Definitions of strucutres for Storage.

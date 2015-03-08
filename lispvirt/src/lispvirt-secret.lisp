@@ -22,9 +22,10 @@
 (asdf:operate 'asdf:load-op :cffi)
 
 (defpackage #:lispvirt-secret
-  (:use :cl :cffi))
+  (:use :cl :cffi :lispvirt-ffi :lispvirt-host)
+  (:export :virSecretPtr))
 
-(in-package :lispvirt-ffi)
+(in-package :lispvirt-secret)
 
 
 ;; Definitions of strucutres for Storage.

@@ -22,9 +22,11 @@
 (asdf:operate 'asdf:load-op :cffi)
 
 (defpackage #:lispvirt-network
-  (:use :cl :cffi))
+  (:use :cl :cffi :lispvirt-host)
+  (:export :virNetworkPtr
+	   :virNetworkDHCPLeasePtr))
 
-(in-package :lispvirt-ffi)
+(in-package :lispvirt-network)
 
 ;; Definitions of strucutres for Network.
 (defcstruct virNetwork)

@@ -22,9 +22,13 @@
 (asdf:operate 'asdf:load-op :cffi)
 
 (defpackage #:lispvirt-storage
-  (:use :cl :cffi))
+  (:use :cl :cffi :lispvirt-host)
+  (:export :virStoragePoolPtr
+	   :virStoragePoolInfoPtr
+	   :virStorageVolPtr
+	   :virStorageVolInfoPtr))
 
-(in-package :lispvirt-ffi)
+(in-package :lispvirt-storage)
 
 
 ;; Definitions of strucutres for Storage.

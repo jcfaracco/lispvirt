@@ -22,9 +22,19 @@
 (asdf:operate 'asdf:load-op :cffi)
 
 (defpackage #:lispvirt-host
-  (:use :cl :cffi))
+  (:use :cl :cffi)
+  (:export :virConnectPtr
+	   :virStreamPtr
+	   :virSecurityLabelPtr
+	   :virTypedParameterPtr
+	   :virSecurityModelPtr
+	   :virConnectAuthPtr
+	   :virNodeInfoPtr
+	   :virNodeCPUStatsPtr
+	   :virNodeMemoryStatsPtr
+	   :virconnectopen))
 
-(in-package :lispvirt-ffi)
+(in-package :lispvirt-host)
 
 
 ;; Definitions of strucutres for Host.

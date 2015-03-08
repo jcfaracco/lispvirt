@@ -24,7 +24,7 @@
 (defpackage #:lispvirt-event
   (:use :cl :cffi))
 
-(in-package :lispvirt-ffi)
+(in-package :lispvirt-event)
 
 
 ;; Definitions of strucutres for Storage.
