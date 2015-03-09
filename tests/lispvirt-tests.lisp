@@ -1,16 +1,12 @@
 (defpackage :lispvirt-tests
-  (:use :cl :lispvirt :lispvirt-host :cffi :xlunit))
+  (:use :cl :lispvirt :lispvirt-tests-connection :lispvirt-tests-domain :xlunit))
 
 (in-package :lispvirt-tests)
 
-(defclass lispvirt-test-connection (test-case)
-  ())
-
-(def-test-method test-virconnect ((test lispvirt-test-connection))
-  (virConnectOpen "test:///default"))
-
-(defun run-all-test-connection ()
-  (textui-test-run (get-suite lispvirt-test-connection)))
+(defun run-all-tests ()
+  (progn
+    (run-all-tests-connection)
+    (run-all-tests-domain)))
 
 ;;(test test-virconnect
 ;;  (virconnectopen "test:///default"))

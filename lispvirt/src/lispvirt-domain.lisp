@@ -35,7 +35,8 @@
 	   :virDomainBlockJobInfoPtr
 	   :virDomainDiskErrorPtr
 	   :virDomainJobInfoPtr
-	   :virDomainFSInfoPtr))
+	   :virDomainFSInfoPtr
+	   :virDomainLookupByName))
 
 (in-package :lispvirt-domain)
 
