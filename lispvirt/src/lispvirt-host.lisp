@@ -32,7 +32,7 @@
 	   :virNodeInfoPtr
 	   :virNodeCPUStatsPtr
 	   :virNodeMemoryStatsPtr
-	   :virconnectopen))
+	   :virConnectOpen))
 
 (in-package :lispvirt-host)
 

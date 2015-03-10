@@ -36,7 +36,9 @@
 	   :virDomainDiskErrorPtr
 	   :virDomainJobInfoPtr
 	   :virDomainFSInfoPtr
-	   :virDomainLookupByName))
+	   :virDomainLookupByName
+	   :virConnectNumOfDomains
+	   :virConnectListDomains))
 
 (in-package :lispvirt-domain)
 
