@@ -24,9 +24,22 @@
 (in-package lispvirt-domain)
 
 ;; Example methods for domain.
-(defun list-all-active-domains (string)
-        (let ((conn (virConnectOpen string)))
-                (virConnectListDomains conn (virConnectNumOfDomains conn))))
+(defun list-all-active-domains (hypervisor)
+  (let ((conn (virConnectOpen hypervisor)))
+    (setq max (virConnectNumOfDomains conn))
+    (virConnectListDomains conn max)))
+
+(defun list-first-active-domain (hypervisor)
+  (let ((conn (virConnectOpen hypervisor)))
+    (setq max (virConnectNumOfDomains conn))
+    (setq first (car (virConnectListDomains conn max)))
+    (setq domain (virDomainLookupByID conn first))
+    (list (virDomainGetName domain)
+          (virDomainGetUUID domain)
+          (virDomainGetOSType domain)
+          (virDomainGetMaxMemory domain))))
 
 ;; Running methods.
 (list-all-active-domains "qemu:///system")
+
+(list-first-active-domain "qemu:///system")
