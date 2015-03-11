@@ -21,30 +21,40 @@
 
 (asdf:load-system :lispvirt)
 
+(asdf:oos 'asdf:load-op :xmls)
+
+
+(require 'xmls)
+
+(use-package 'xmls)
+
+
 (in-package lispvirt-domain)
 
 ;; Example methods for domain.
 
-;; This method only lists the IDs of the active domains.
-(defun list-all-active-domains (hypervisor)
-  (let ((conn (virConnectOpen hypervisor)))
-    (setq max (virConnectNumOfDomains conn))
-    (virConnectListDomains conn max)))
-
-;; This method retrieves some informations of the first
-;; active domain.
-(defun list-first-active-domain (hypervisor)
+;; This method receive the hypervisor string and find
+;; the first active domain. If it finds, the method will
+;; return its XML Description.
+(defun first-domain-to-xml (hypervisor)
   (let ((conn (virConnectOpen hypervisor)))
     (setq max (virConnectNumOfDomains conn))
     (setq first (car (virConnectListDomains conn max)))
     (setq domain (virDomainLookupByID conn first))
-    (list (virDomainGetName domain)
-          (virDomainGetUUID domain)
-          (virDomainGetOSType domain)
-          (virDomainGetMaxMemory domain))))
+    (virDomainGetXMLDesc domain
+                         (foreign-enum-value 'virDomainXMLFlags             ;; How to use enums.
+                                             :VIR_DOMAIN_XML_INACTIVE))))
+
+;; This method convert the XML Description from a Domain
+;; into a list with some informations.
+(defun xml-to-info (XMLDesc)
+  (let ((tree (parse XMLDesc)))
+    (list (car (last (car (xmlrep-attribs tree))))
+          (car (last (xmlrep-find-child-tag "name" tree)))
+          (car (last (xmlrep-find-child-tag "uuid" tree)))
+          (car (last (xmlrep-find-child-tag "memory" tree)))
+          (car (last (xmlrep-find-child-tag "vcpu" tree))))))
 
 
 ;; Running methods.
-(list-all-active-domains "qemu:///system")
-
-(list-first-active-domain "qemu:///system")
+(xml-to-info (first-domain-to-xml "qemu:///system"))

@@ -36,6 +36,7 @@
 	   :virDomainDiskErrorPtr
 	   :virDomainJobInfoPtr
 	   :virDomainFSInfoPtr
+	   :virDomainXMLFlags
 	   :virDomainGetName
 	   :virDomainGetID
 	   :virDomainGetUUID
@@ -157,6 +158,12 @@
 ;;(defcstruct virDomainEventGraphicsAddress)
 
 (defcstruct virDomainFSInfo)
+
+(defcenum virDomainXMLFlags
+	(:VIR_DOMAIN_XML_SECURE 1)	;; dump security sensitive information too */
+	(:VIR_DOMAIN_XML_INACTIVE 2)	;; dump inactive domain information */
+	(:VIR_DOMAIN_XML_UPDATE_CPU 4)	;; update guest CPU requirements according to host CPU */
+	(:VIR_DOMAIN_XML_MIGRATABLE 8))	;; dump XML suitable for migration */
 
 
 ;; Pointers mapping to structures.
