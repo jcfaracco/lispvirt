@@ -25,6 +25,9 @@ For libvirt
 For testing:
   * cl-xlunit
 
+For examples:
+  * cl-xmls
+
 
 Installation
 -----------------------------
