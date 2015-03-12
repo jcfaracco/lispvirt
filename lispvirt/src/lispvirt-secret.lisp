@@ -23,7 +23,27 @@
 
 (defpackage #:lispvirt-secret
   (:use :cl :cffi :lispvirt-ffi :lispvirt-host)
-  (:export :virSecretPtr))
+  (:export :virSecretPtr
+	   :virSecretUsageType
+	   :virConnectListAllSecretsFlags
+	   :virSecretGetConnect
+	   :virConnectNumOfSecrets
+	   :virConnectListSecrets
+	   :virConnectListAllSecrets
+	   :virSecretLookupByUUID
+	   :virSecretLookupByUUIDString
+	   :virSecretLookupByUsage
+	   :virSecretDefineXML
+	   :virSecretGetUUID
+	   :virSecretGetUUIDString
+	   :virSecretGetUsageType
+	   :virSecretGetUsageID
+	   :virSecretGetXMLDesc
+	   :virSecretSetValue
+	   :virSecretGetValue
+	   :virSecretUndefine
+	   :virSecretRef
+	   :virSecretFree))
 
 (in-package :lispvirt-secret)
 

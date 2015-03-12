@@ -24,7 +24,34 @@
 (defpackage #:lispvirt-network
   (:use :cl :cffi :lispvirt-host)
   (:export :virNetworkPtr
-	   :virNetworkDHCPLeasePtr))
+	   :virNetworkDHCPLeasePtr
+	   :virNetworkGetConnect
+	   :virConnectNumOfNetworks
+	   :virConnectListNetworks
+	   :virConnectNumOfDefinedNetworks
+	   :virConnectListDefinedNetworks
+	   :virConnectListAllNetworks
+	   :virNetworkLookupByName
+	   :virNetworkLookupByUUID
+	   :virNetworkLookupByUUIDString
+	   :virNetworkCreateXML
+	   :virNetworkDefineXML
+	   :virNetworkUndefine
+	   :virNetworkUpdate
+	   :virNetworkCreate
+	   :virNetworkDestroy
+	   :virNetworkRef
+	   :virNetworkFree
+	   :virNetworkGetName
+	   :virNetworkGetXMLDesc
+	   :virNetworkGetBridgeName
+	   :virNetworkGetAutostart
+	   :virNetworkSetAutostart
+	   :virNetworkIsActive
+	   :virNetworkIsPersistent
+	   :virNetworkDHCPLeaseFree
+	   :virNetworkGetDHCPLeases
+	   :virConnectNetworkEventDeregisterAny))
 
 (in-package :lispvirt-network)
 

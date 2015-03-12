@@ -22,7 +22,11 @@
 (asdf:operate 'asdf:load-op :cffi)
 
 (defpackage #:lispvirt-qemu
-  (:use :cl :cffi :lispvirt-host :lispvirt-domain))
+  (:use :cl :cffi :lispvirt-host :lispvirt-domain)
+  (:export :virDomainQemuMonitorCommand
+	   :virDomainQemuAttach
+	   :virDomainQemuAgentCommand
+	   :virConnectDomainQemuMonitorEventDeregister))
 
 (in-package :lispvirt-qemu)
 

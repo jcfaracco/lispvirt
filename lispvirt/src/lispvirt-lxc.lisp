@@ -22,7 +22,10 @@
 (asdf:operate 'asdf:load-op :cffi)
 
 (defpackage #:lispvirt-lxc
-  (:use :cl :cffi :lispvirt-host :lispvirt-domain))
+  (:use :cl :cffi :lispvirt-host :lispvirt-domain)
+  (:export :virDomainLxcOpenNamespace
+	   :virDomainLxcEnterNamespace
+	   :virDomainLxcEnterSecurityLabel))
 
 (in-package :lispvirt-lxc)
 

@@ -24,7 +24,23 @@
 (defpackage #:lispvirt-nodedev
   (:use :cl :cffi :lispvirt-host)
   (:export :virNodeDevicePtr
-	   :virConnectListAllNodeDeviceFlags))
+	   :virConnectListAllNodeDeviceFlags
+	   :virNodeNumOfDevices
+	   :virNodeListDevices
+	   :virNodeDeviceLookupSCSIHostByWWN
+	   :virNodeDeviceGetName
+	   :virNodeDeviceGetParent
+	   :virNodeDeviceNumOfCaps
+	   :virNodeDeviceListCaps
+	   :virNodeDeviceGetXMLDesc
+	   :virNodeDeviceRef
+	   :virNodeDeviceFree
+	   :virNodeDeviceDettach
+	   :virNodeDeviceDetachFlags
+	   :virNodeDeviceReAttach
+	   :virNodeDeviceReset
+	   :virNodeDeviceCreateXML
+	   :virNodeDeviceDestroy))
 
 (in-package :lispvirt-nodedev)
 

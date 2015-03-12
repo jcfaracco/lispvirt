@@ -23,7 +23,20 @@
 
 (defpackage #:lispvirt-nwfilter
   (:use :cl :cffi :lispvirt-host)
-  (:export virNWFilterPtr))
+  (:export :virNWFilterPtr
+	   :virConnectListNWFilters
+	   :virConnectListAllNWFilters
+	   :virNWFilterLookupByName
+	   :virNWFilterLookupByUUID
+	   :virNWFilterLookupByUUIDString
+	   :virNWFilterDefineXML
+	   :virNWFilterUndefine
+	   :virNWFilterRef
+	   :virNWFilterFree
+	   :virNWFilterGetName
+	   :virNWFilterGetUUID
+	   :virNWFilterGetUUIDString
+	   :virNWFilterGetXMLDesc))
 
 (in-package :lispvirt-nwfilter)
 
