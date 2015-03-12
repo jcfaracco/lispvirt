@@ -23,7 +23,28 @@
 
 (defpackage #:lispvirt-interface
   (:use :cl :cffi :lispvirt-host)
-  (:export virInterfacePtr))
+  (:export :virInterfacePtr
+	   :virInterfaceGetConnect
+	   :virConnectNumOfInterfaces
+	   :virConnectListInterfaces
+	   :virConnectNumOfDefinedInterfaces
+	   :virConnectListDefinedInterfaces
+	   :virConnectListAllInterfaces
+	   :virInterfaceLookupByName
+	   :virInterfaceLookupByMACString
+	   :virInterfaceGetName
+	   :virInterfaceGetMACString
+	   :virInterfaceGetXMLDesc
+	   :virInterfaceDefineXML
+	   :virInterfaceUndefine
+	   :virInterfaceCreate
+	   :virInterfaceDestroy
+	   :virInterfaceRef
+	   :virInterfaceFree
+	   :virInterfaceChangeBegin
+	   :virInterfaceChangeCommit
+	   :virInterfaceChangeRollback
+	   :virInterfaceIsActive))
 
 (in-package :lispvirt-interface)
 

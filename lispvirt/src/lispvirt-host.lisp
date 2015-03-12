@@ -32,7 +32,58 @@
 	   :virNodeInfoPtr
 	   :virNodeCPUStatsPtr
 	   :virNodeMemoryStatsPtr
-	   :virConnectOpen))
+	   :virTypedParamsGet
+	   :virTypedParamsGetInt
+	   :virTypedParamsGetUInt
+	   :virTypedParamsGetLLong
+	   :virTypedParamsGetULLong
+	   :virTypedParamsGetDouble
+	   :virTypedParamsGetBoolean
+	   :virTypedParamsGetString
+	   :virTypedParamsAddInt
+	   :virTypedParamsAddUInt
+	   :virTypedParamsAddLLong
+	   :virTypedParamsAddULLong
+	   :virTypedParamsAddDouble
+	   :virTypedParamsAddBoolean
+	   :virTypedParamsAddString
+	   :virTypedParamsAddFromString
+	   :virTypedParamsClear
+	   :virTypedParamsFree
+	   :virNodeGetMemoryParameters
+	   :virNodeSetMemoryParameters
+	   :virNodeGetCPUMap
+	   :virGetVersion
+	   :virInitialize
+	   :virConnectOpen
+	   :virConnectOpenReadOnly
+	   :virConnectOpenAuth
+	   :virConnectRef
+	   :virConnectClose
+	   :virConnectGetType
+	   :virConnectGetVersion
+	   :virConnectGetLibVersion
+	   :virConnectGetHostname
+	   :virConnectGetURI
+	   :virConnectGetSysinfo
+	   :virConnectSetKeepAlive
+	   :virConnectGetMaxVcpus
+	   :virNodeGetInfo
+	   :virConnectGetCapabilities
+	   :virNodeGetCPUStats
+	   :virNodeGetMemoryStats
+	   :virNodeGetFreeMemory
+	   :virNodeGetSecurityModel
+	   :virNodeSuspendForDuration
+	   :virNodeGetCellsFreeMemory
+	   :virConnectIsEncrypted
+	   :virConnectIsSecure
+	   :virConnectIsAlive
+	   :virConnectCompareCPU
+	   :virConnectGetCPUModelNames
+	   :virConnectBaselineCPU
+	   :virNodeGetFreePages
+	   :virNodeAllocPages))
 
 (in-package :lispvirt-host)
 

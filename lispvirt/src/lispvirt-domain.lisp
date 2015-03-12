@@ -126,7 +126,62 @@
 	   :virDomainSetNumaParameters
 	   :virDomainGetNumaParameters
 	   :virDomainMemoryStats
-))
+           :virDomainMemoryPeek
+           :virDomainDefineXML
+           :virDomainDefineXMLFlags
+           :virDomainUndefine
+           :virDomainUndefineFlags
+           :virConnectNumOfDefinedDomains
+           :virDomainCreate
+           :virDomainCreateWithFlags
+           :virDomainCreateWithFiles
+           :virDomainGetAutostart
+           :virDomainSetAutostart
+           :virDomainSetVcpus
+           :virDomainSetVcpusFlags
+           :virDomainGetVcpusFlags
+           :virDomainPinVcpu
+           :virDomainPinVcpuFlags
+           :virDomainGetVcpuPinInfo
+           :virDomainPinEmulator
+           :virDomainGetEmulatorPinInfo
+           :virDomainGetVcpus
+           :virDomainAttachDevice
+           :virDomainDetachDevice
+           :virDomainAttachDeviceFlags
+           :virDomainDetachDeviceFlags
+           :virDomainUpdateDeviceFlags
+           :virConnectGetAllDomainStats
+           :virDomainListGetStats
+           :virDomainStatsRecordListFree
+           :virDomainBlockJobAbort
+           :virDomainGetBlockJobInfo
+           :virDomainBlockJobSetSpeed
+           :virDomainBlockPull
+           :virDomainBlockRebase
+           :virDomainBlockCopy
+           :virDomainBlockCommit
+           :virDomainSetBlockIoTune
+           :virDomainGetBlockIoTunet
+           :virDomainGetDiskErrors
+           :virDomainSendKey
+           :virDomainSendProcessSignal
+           :virDomainGetJobInfo
+           :virDomainGetJobStats
+           :virDomainAbortJob
+           :virConnectDomainEventDeregisterAny
+           :virDomainOpenConsole
+           :virDomainOpenChannel
+           :virDomainOpenGraphics
+           :virDomainOpenGraphicsFD
+           :virDomainInjectNMI
+           :virDomainFSTrim
+           :virDomainFSFreeze
+           :virDomainFSThaw
+           :virDomainFSInfoFree
+           :virDomainGetFSInfo
+           :virDomainGetTime
+           :virDomainSetTime))
 
 (in-package :lispvirt-domain)
 

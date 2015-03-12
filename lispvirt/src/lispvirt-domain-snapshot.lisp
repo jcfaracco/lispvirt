@@ -23,7 +23,32 @@
 
 (defpackage #:lispvirt-domain-snapshot
   (:use :cl :cffi :lispvirt-host :lispvirt-domain)
-  (:export :virDomainSnapshot))
+  (:export :virDomainSnapshotPtr
+	   :virDomainSnapshotCreateFlags
+	   :virDomainSnapshotListFlags
+	   :virDomainSnapshotRevertFlags
+	   :virDomainSnapshotDeleteFlags
+	   :virDomainSnapshotGetName
+	   :virDomainSnapshotGetDomain
+	   :virDomainSnapshotGetConnect
+	   :virDomainSnapshotCreateXML
+	   :virDomainSnapshotGetXMLDesc
+	   :virDomainSnapshotNum
+	   :virDomainSnapshotListNames
+	   :virDomainListAllSnapshots
+	   :virDomainSnapshotNumChildren
+	   :virDomainSnapshotListChildrenNames
+	   :virDomainSnapshotListAllChildren
+	   :virDomainSnapshotLookupByName
+	   :virDomainHasCurrentSnapshot
+	   :virDomainSnapshotCurrent
+	   :virDomainSnapshotGetParent
+	   :virDomainSnapshotIsCurrent
+	   :virDomainSnapshotHasMetadata
+	   :virDomainRevertToSnapshot
+	   :virDomainSnapshotDelete
+	   :virDomainSnapshotRef
+	   :virDomainSnapshotFree))
 
 (in-package :lispvirt-domain-snapshot)
 

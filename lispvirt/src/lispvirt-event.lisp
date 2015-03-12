@@ -22,7 +22,14 @@
 (asdf:operate 'asdf:load-op :cffi)
 
 (defpackage #:lispvirt-event
-  (:use :cl :cffi))
+  (:use :cl :cffi)
+  (:export :virEventHandleType
+	   :virEventRegisterDefaultImpl
+	   :virEventRunDefaultImpl
+	   :virEventUpdateHandle
+	   :virEventRemoveHandle
+	   :virEventUpdateTimeout
+	   :virEventRemoveTimeout))
 
 (in-package :lispvirt-event)
 

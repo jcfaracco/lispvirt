@@ -23,7 +23,21 @@
 
 (defpackage #:lispvirt-error
   (:use :cl :cffi :lispvirt-host)
-  (:export virErrorPtr))
+  (:export :virErrorPtr
+	   :virErrorLevel
+	   :virErrorDomain
+	   :virErrorNumber
+	   :virGetLastError
+	   :virSaveLastError
+	   :virResetLastError
+	   :virResetError
+	   :virFreeError
+	   :virGetLastErrorMessage
+	   :virConnGetLastError
+	   :virConnResetLastError
+	   :virCopyLastError
+	   :virDefaultErrorFunc
+	   :virConnCopyLastError))
 
 (in-package :lispvirt-error)
 
