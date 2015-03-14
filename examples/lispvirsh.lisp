@@ -19,6 +19,8 @@
 ;;; along with Lispvirt.  If not, see <http://www.gnu.org/licenses/>.
 ;;;-------------------------------------------------------------------------
 
+(require 'asdf)
+
 (asdf:load-system :lispvirt)
 
 (in-package lispvirt-domain)
@@ -51,6 +53,7 @@
                        (foreign-enum-value 'virDomainCreateFlags
                                            :VIR_DOMAIN_START_FORCE_BOOT))
                 (progn
+		  (print "Starting...")
                   (virDomainCreateWithFlags domain flags)
                   (virDomainFree domain)))))))
 
@@ -61,9 +64,11 @@
     (if (not (eq domain nil))
         (if (not (eq flags 0))
             (progn
+	      (print "Shuting down...")
               (virDomainShutdownFlags domain 1)
               (virDomainFree domain))
             (progn
+	      (print "Shuting down...")
               (virDomainShutdown domain)
               (virDomainFree domain)))
         (print "Domain does not exists!"))))
