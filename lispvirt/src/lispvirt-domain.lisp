@@ -37,6 +37,7 @@
 	   :virDomainJobInfoPtr
 	   :virDomainFSInfoPtr
 	   :virDomainXMLFlags
+	   :virDomainCreateFlags
 	   :virDomainGetName
 	   :virDomainGetID
 	   :virDomainGetUUID
@@ -215,10 +216,18 @@
 (defcstruct virDomainFSInfo)
 
 (defcenum virDomainXMLFlags
-	(:VIR_DOMAIN_XML_SECURE 1)	;; dump security sensitive information too */
-	(:VIR_DOMAIN_XML_INACTIVE 2)	;; dump inactive domain information */
-	(:VIR_DOMAIN_XML_UPDATE_CPU 4)	;; update guest CPU requirements according to host CPU */
-	(:VIR_DOMAIN_XML_MIGRATABLE 8))	;; dump XML suitable for migration */
+	(:VIR_DOMAIN_XML_SECURE 1)	;; dump security sensitive information too.
+	(:VIR_DOMAIN_XML_INACTIVE 2)	;; dump inactive domain information.
+	(:VIR_DOMAIN_XML_UPDATE_CPU 4)	;; update guest CPU requirements according to host CPU.
+	(:VIR_DOMAIN_XML_MIGRATABLE 8))	;; dump XML suitable for migration.
+
+(defcenum virDomainCreateFlags
+	(:VIR_DOMAIN_NONE 0)			;; Default behavior.
+	(:VIR_DOMAIN_START_PAUSED 1)		;; Launch guest in paused state.
+	(:VIR_DOMAIN_START_AUTODESTROY 2)	;; Automatically kill guest when virConnectPtr is closed.
+	(:VIR_DOMAIN_START_BYPASS_CACHE 4)	;; Avoid file system cache pollution.
+	(:VIR_DOMAIN_START_FORCE_BOOT 8)	;; Boot, discarding any managed save.
+	(:VIR_DOMAIN_START_VALIDATE 16))	;; Validate the XML document against schema.
 
 
 ;; Pointers mapping to structures.
@@ -256,7 +265,7 @@
 (defcfun "virDomainGetName" :string
 	(domain virDomainPtr))
 
-(defcfun "virDomainGetID" :uint
+(defcfun "virDomainGetID" :int
 	(domain virDomainPtr))
 
 (defcfun "virDomainGetUUID" :int
