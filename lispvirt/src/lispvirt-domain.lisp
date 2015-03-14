@@ -38,6 +38,8 @@
 	   :virDomainFSInfoPtr
 	   :virDomainXMLFlags
 	   :virDomainCreateFlags
+	   :virDomainShutdownFlagValues
+	   :virDomainRebootFlagValues
 	   :virDomainGetName
 	   :virDomainGetID
 	   :virDomainGetUUID
@@ -228,6 +230,22 @@
 	(:VIR_DOMAIN_START_BYPASS_CACHE 4)	;; Avoid file system cache pollution.
 	(:VIR_DOMAIN_START_FORCE_BOOT 8)	;; Boot, discarding any managed save.
 	(:VIR_DOMAIN_START_VALIDATE 16))	;; Validate the XML document against schema.
+
+(defcenum virDomainShutdownFlagValues
+	(:VIR_DOMAIN_SHUTDOWN_DEFAULT 1)        ;; hypervisor choice.
+	(:VIR_DOMAIN_SHUTDOWN_ACPI_POWER_BTN 2)	;; Send ACPI event.
+	(:VIR_DOMAIN_SHUTDOWN_GUEST_AGENT 4)	;; Use guest agent.
+	(:VIR_DOMAIN_SHUTDOWN_INITCTL 8)	;; Use initctl.
+	(:VIR_DOMAIN_SHUTDOWN_SIGNAL 16)	;; Send a signal.
+	(:VIR_DOMAIN_SHUTDOWN_PARAVIRT 32))	;; Use paravirt guest control.
+
+(defcenum virDomainRebootFlagValues
+	(:VIR_DOMAIN_REBOOT_DEFAULT 0)		;; hypervisor choice.
+	(:VIR_DOMAIN_REBOOT_ACPI_POWER_BTN 1)	;; Send ACPI event.
+	(:VIR_DOMAIN_REBOOT_GUEST_AGENT 2)	;; Use guest agent.
+	(:VIR_DOMAIN_REBOOT_INITCTL 4)		;; Use initctl.
+	(:VIR_DOMAIN_REBOOT_SIGNAL 8)		;; Send a signal.
+	(:VIR_DOMAIN_REBOOT_PARAVIRT 16))	;; Use paravirt guest control.
 
 
 ;; Pointers mapping to structures.
