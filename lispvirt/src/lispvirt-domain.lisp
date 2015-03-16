@@ -442,7 +442,7 @@
 (defun virDomainGetInterfaceParameters (dom device flags)
 	(with-foreign-objects ((params virTypedParameterPtr)
                                (nparams :int))
-                (%virDomainGetInterfaceParameters domain device params nparams flags)
+                (%virDomainGetInterfaceParameters dom device params nparams flags)
                 (values (mem-ref params virTypedParameterPtr)
                         (mem-ref nparams :int))))
 
@@ -488,7 +488,7 @@
 (defun virDomainGetSchedulerParametersFlags (domain flags)
 	(with-foreign-objects ((params virTypedParameterPtr)
                                (nparams :int))
-                (%virDomainGetSchedulerParameters domain params nparams flags)
+                (%virDomainGetSchedulerParametersFlags domain params nparams flags)
                 (values (mem-ref params virTypedParameterPtr)
                         (mem-ref nparams :int))))
 
