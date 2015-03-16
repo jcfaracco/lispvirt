@@ -55,6 +55,11 @@
 	(names (:pointer :string))
 	(maxnames :int))
 
+(defun virConnectListNWFilters (conn maxnames)
+        (with-foreign-objects ((names :string))
+                (%virConnectListNWFilters conn names maxnames)
+                (values (mem-ref names :string))))
+
 (defcfun ("virConnectListAllNWFilters" %virConnectListAllNWFilters) :int
 	(conn virConnectPtr)
 	(filters (:pointer (:pointer virNWFilterPtr)))
