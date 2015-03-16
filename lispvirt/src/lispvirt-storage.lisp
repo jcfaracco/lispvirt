@@ -211,6 +211,11 @@
 	(pool virStoragePoolPtr)
 	(autostart (:pointer :int)))
 
+(defun virStoragePoolGetAutostart (pool)
+        (with-foreign-objects ((autostart :int))
+                (%virStoragePoolGetAutostart pool autostart)
+                (values (mem-ref autostart :int))))
+
 (defcfun "virStoragePoolSetAutostart" :int
 	(pool virStoragePoolPtr)
 	(autostart :int))
@@ -221,12 +226,17 @@
 (defcfun "virStoragePoolNumOfVolumes" :int
 	(pool virStoragePoolPtr))
 
-(defcfun "virStoragePoolListVolumes" :int
+(defcfun ("virStoragePoolListVolumes" %virStoragePoolListVolumes) :int
 	(pool virStoragePoolPtr)
 	(names (:pointer :string))
 	(maxnames :int))
 
-(defcfun "virStoragePoolListAllVolumes" :int
+(defun virStoragePoolListVolumes (pool maxnames)
+	(with-foreign-objects ((names :string))
+                (%virStoragePoolListVolumes pool names maxnames)
+                (values (mem-ref names :string))))
+
+(defcfun ("virStoragePoolListAllVolumes" %virStoragePoolListAllVolumes) :int
 	(pool virStoragePoolPtr)
 	(vols (:pointer (:pointer virStorageVolPtr)))
 	(flags :uint))
