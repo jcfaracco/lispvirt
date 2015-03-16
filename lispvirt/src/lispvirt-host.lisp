@@ -140,11 +140,21 @@
 	(name :string)
 	(value (:pointer :int)))
 
+(defun virTypedParamsGetInt (params nparams name)
+        (with-foreign-objects ((value :int))
+                (%virTypedParamsGetInt params nparams name value)
+                (values (mem-ref value :int))))
+
 (defcfun ("virTypedParamsGetUInt" %virTypedParamsGetUInt) :int
 	(params virTypedParameterPtr)
 	(nparams :int)
 	(name :string)
 	(value (:pointer :uint)))
+
+(defun virTypedParamsGetUInt (params nparams name)
+        (with-foreign-objects ((value :uint))
+                (%virTypedParamsGetUInt params nparams name value)
+                (values (mem-ref value :uint))))
 
 (defcfun ("virTypedParamsGetLLong" %virTypedParamsGetLLong) :int
 	(params virTypedParameterPtr)
@@ -152,11 +162,21 @@
 	(name :string)
 	(value (:pointer :llong)))
 
+(defun virTypedParamsGetLLong (params nparams name)
+        (with-foreign-objects ((value :llong))
+                (%virTypedParamsGetLLong params nparams name value)
+                (values (mem-ref value :llong))))
+
 (defcfun ("virTypedParamsGetULLong" %virTypedParamsGetULLong) :int
 	(params virTypedParameterPtr)
 	(nparams :int)
 	(name :string)
 	(value (:pointer :ullong)))
+
+(defun virTypedParamsGetULLong (params nparams name)
+        (with-foreign-objects ((value :ullong))
+                (%virTypedParamsGetULLong params nparams name value)
+                (values (mem-ref value :ullong))))
 
 (defcfun ("virTypedParamsGetDouble" %virTypedParamsGetDouble) :int
 	(params virTypedParameterPtr)
@@ -164,17 +184,32 @@
 	(name :string)
 	(value (:pointer :double)))
 
+(defun virTypedParamsGetDouble (params nparams name)
+        (with-foreign-objects ((value :double))
+                (%virTypedParamsGetDouble params nparams name value)
+                (values (mem-ref value :double))))
+
 (defcfun ("virTypedParamsGetBoolean" %virTypedParamsGetBoolean) :int
 	(params virTypedParameterPtr)
 	(nparams :int)
 	(name :string)
 	(values (:pointer :int)))
 
+(defun virTypedParamsGetBoolean (params nparams name)
+        (with-foreign-objects ((value :int))
+                (%virTypedParamsGetBoolean params nparams name value)
+                (values (mem-ref value :int))))
+
 (defcfun ("virTypedParamsGetString" %virTypedParamsGetString) :int
 	(params virTypedParameterPtr)
 	(nparams :int)
 	(name :string)
 	(value (:pointer :string)))
+
+(defun virTypedParamsGetString (params nparams name)
+        (with-foreign-objects ((value :string))
+                (%virTypedParamsGetInt params nparams name value)
+                (values (mem-ref value :string))))
 
 (defcfun "virTypedParamsAddInt" :int
 	(params (:pointer virTypedParameterPtr))
@@ -247,6 +282,13 @@
 	(nparams (:pointer :int))
 	(flags :uint))
 
+(defun virNodeGetMemoryParameters (conn flags)
+        (with-foreign-objects ((params virTypedParameterPtr)
+			       (nparams :int))
+                (%virNodeGetMemoryParameters conn params nparams flags)
+                (values (mem-ref params virTypedParameterPtr)
+			(mem-ref nparams :int))))
+
 (defcfun "virNodeSetMemoryParameters" :int
 	(conn virConnectPtr)
 	(params virTypedParameterPtr)
@@ -261,10 +303,25 @@
 	(online (:pointer :uint))
 	(flags :uint))
 
+(defun virNodeGetCPUMap (conn flags)
+        (with-foreign-objects ((cpumap :string)
+			       (online :uint))
+                (%virNodeGetCPUMap conn cpumap online flags)
+                (values (mem-ref cpumap :string)
+			(mem-ref online :uint))))
+
 (defcfun ("virGetVersion" %virGetVersion) :int
 	(libVer (:pointer :ulong))
 	(type :string)
 	(typeVer (:pointer :ulong)))
+
+(defun virGetVersion (type)
+        (with-foreign-objects ((libVer :ulong)
+			       (typeVer :ulong))
+                (%virGetVersion libVer type typeVer)
+                (values (mem-ref libVer :ulong)
+			(mem-ref typeVer :ulong))))
+
 
 ;; Connection and disconnections to the Hypervisor
 (defcfun "virInitialize" :int)
@@ -293,9 +350,19 @@
 	(conn virConnectPtr)
 	(hvVer (:pointer :ulong)))
 
+(defun virConnectGetVersion (conn)
+        (with-foreign-objects ((hvVer :ulong))
+                (%virConnectGetVersion conn hvVer)
+                (values (mem-ref hvVer :ulong))))
+
 (defcfun ("virConnectGetLibVersion" %virConnectGetLibVersion) :int
 	(conn virConnectPtr)
 	(libVer (:pointer :ulong)))
+
+(defun virConnectGetLibVersion (conn)
+        (with-foreign-objects ((libVer :ulong))
+                (%virConnectGetLibVersion conn libVer)
+                (values (mem-ref libVer :ulong))))
 
 (defcfun "virConnectGetHostname" :string
 	(conn virConnectPtr))
@@ -342,12 +409,26 @@
 	(nparams (:pointer :int))
 	(flags :uint))
 
+(defun virNodeGetCPUStats (conn cpuNum flags)
+        (with-foreign-objects ((params virNodeCPUStatsPtr)
+			       (nparams :int))
+                (%virNodeGetCPUStats conn cpuNum params nparams flags)
+                (values (mem-ref params virNodeCPUStatsPtr)
+			(mem-ref nparams :int))))
+
 (defcfun ("virNodeGetMemoryStats" %virNodeGetMemoryStats) :int
 	(conn virConnectPtr)
 	(cellNum :int)
 	(params virNodeMemoryStatsPtr)
 	(nparams (:pointer :int))
 	(flags :uint))
+
+(defun virNodeGetMemoryStats (conn cellNum flags)
+        (with-foreign-objects ((params virNodeMemoryStatsPtr)
+			       (nparams :int))
+                (%virNodeGetMemoryStats conn cellNum params nparams flags)
+                (values (mem-ref params virNodeMemoryStatsPtr)
+			(mem-ref nparams :int))))
 
 (defcfun "virNodeGetFreeMemory" :ullong
 	(conn virConnectPtr))
@@ -369,6 +450,11 @@
 	(freeMems (:pointer :ullong))
 	(startCell :int)
 	(maxCells :int))
+
+(defun virNodeGetCellsFreeMemory (conn startCell maxCells)
+        (with-foreign-objects ((freeMems :ullong))
+                (%virNodeGetCellsFreeMemory conn freeMems startCells maxCells)
+                (values (mem-ref freeMems :ullong))))
 
 (defcfun "virConnectIsEncrypted" :int
 	(conn virConnectPtr))
@@ -406,13 +492,25 @@
 	(counts (:pointer :ullong))
 	(flags :uint))
 
+(defun virNodeGetFreePages (conn npages startcell cellcount flags)
+        (with-foreign-objects ((pages :uint)
+                               (counts :ullong))
+                (%virNodeGetFreePages conn npages pages startcell cellcount counts flags)
+                (values (mem-ref pages :uint)
+                        (mem-ref counts :ullong))))
+
 (defcfun ("virNodeAllocPages" %virNodeAllocPages) :int
 	(conn virConnectPtr)
 	(npages :uint)
 	(pageSizes (:pointer :uint))
-	(*pageCounts (:pointer :ullong))
+	(pageCounts (:pointer :ullong))
 	(startCell :int)
 	(cellCount :uint)
 	(flags :uint))
 
-
+(defun virNodeAllocPages (conn npages startCell cellCount flags)
+        (with-foreign-objects ((pageSizes :uint)
+                               (pageCounts :ullong))
+                (%virNodeAllocPages conn npages pageSizes pageCounts startCell cellCount flags)
+                (values (mem-ref pageSizes :uint)
+                        (mem-ref pageCounts :ullong))))
