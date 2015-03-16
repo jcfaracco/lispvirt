@@ -134,6 +134,11 @@
 	(value_size (:pointer size_t))
 	(flags :uint))
 
+(defun virSecretGetValue (secret flags)
+        (with-foreign-objects ((value_size size_t))
+		(%virSecretGetValue secret value_size flags)
+                (values (mem-ref value_size size_t))))
+
 (defcfun "virSecretUndefine" :int
 	(secret virSecretPtr))
 
