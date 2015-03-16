@@ -472,11 +472,25 @@
 	(params virTypedParameterPtr)
 	(nparams (:pointer :int)))
 
+(defun virDomainGetSchedulerParameters (domain)
+	(with-foreign-objects ((params virTypedParameterPtr)
+                               (nparams :int))
+                (%virDomainGetSchedulerParameters domain params nparams)
+                (values (mem-ref params virTypedParameterPtr)
+                        (mem-ref nparams :int))))
+
 (defcfun ("virDomainGetSchedulerParametersFlags" %virDomainGetSchedulerParametersFlags) :int
 	(domain virDomainPtr)
 	(params virTypedParameterPtr)
 	(nparams (:pointer :int))
 	(flags :uint))
+
+(defun virDomainGetSchedulerParametersFlags (domain flags)
+	(with-foreign-objects ((params virTypedParameterPtr)
+                               (nparams :int))
+                (%virDomainGetSchedulerParameters domain params nparams flags)
+                (values (mem-ref params virTypedParameterPtr)
+                        (mem-ref nparams :int))))
 
 (defcfun "virDomainSetSchedulerParameters" :int
 	(domain virDomainPtr)
@@ -780,12 +794,16 @@
 	(flags :uint))
 
 
-
 ;; Return scheduler type in effect 'sedf', 'credit', 'linux'
 
 (defcfun ("virDomainGetSchedulerType" %virDomainGetSchedulerType) :string
 	(domain virDomainPtr)
 	(nparams (:pointer :int)))
+
+(defun virDomainGetSchedulerType (domain)
+        (with-foreign-objects ((nparams :int))
+                (%virDomainGetSchedulerType domain nparams)
+                (values (mem-ref nparams :int))))
 
 
 ;; Set Blkio tunables for the domain
@@ -802,6 +820,13 @@
 	(nparams (:pointer :int))
 	(flags :uint))
 
+(defun virDomainGetBlkioParameters (domain flags)
+        (with-foreign-objects ((params virTypedParameterPtr)
+			       (nparams :int))
+                (%virDomainGetBlkioParameters domain params nparams flags)
+                (values (mem-ref params virTypedParameterPtr)
+			(mem-ref nparams :int))))
+
 
 ;; Set memory tunables for the domain
 (defcfun "virDomainSetMemoryParameters" :int
@@ -816,6 +841,13 @@
 	(nparams (:pointer :int))
 	(flags :uint))
 
+(defun virDomainGetMemoryParameters (domain flags)
+        (with-foreign-objects ((params virTypedParameterPtr)
+			       (nparams :int))
+                (%virDomainGetMemoryParameters domain params nparams flags)
+                (values (mem-ref params virTypedParameterPtr)
+			(mem-ref nparams :int))))
+
 (defcfun "virDomainSetNumaParameters" :int
 	(domain virDomainPtr)
 	(params virTypedParameterPtr)
@@ -827,6 +859,13 @@
 	(params virTypedParameterPtr)
 	(nparams (:pointer :int))
 	(flags :uint))
+
+(defun virDomainGetNumaParameters (domain flags)
+        (with-foreign-objects ((params virTypedParameterPtr)
+			       (nparams :int))
+                (%virDomainGetNumaParameters domain params nparams flags)
+                (values (mem-ref params virTypedParameterPtr)
+			(mem-ref nparams :int))))
 
 
 ;; Management of domain memory */
@@ -1051,6 +1090,13 @@
 	(nparams (:pointer :int))
 	(flags :uint))
 
+(defun virDomainGetBlockIoTune (domain disk flags)
+        (with-foreign-objects ((params virTypedParameterPtr)
+			       (nparams :int))
+                (%virDomainGetBlockIoTune domain disk params nparams flags)
+                (values (mem-ref params virTypedParameterPtr)
+			(mem-ref nparams :int))))
+
 (defcfun "virDomainGetDiskErrors" :int
 	(domain virDomainPtr)
 	(errors virDomainDiskErrorPtr)
@@ -1167,6 +1213,13 @@
 	(seconds (:pointer :llong))
 	(nseconds (:pointer :uint))
 	(flags :uint))
+
+(defun virDomainGetTime (domain flags)
+        (with-foreign-objects ((seconds :llong)
+			       (nseconds :uint))
+                (%virDomainGetTime domain seconds nseconds flags)
+                (values (mem-ref seconds :llong)
+			(mem-ref nparams :uint))))
 
 (defcfun "virDomainSetTime" :int
 	(domain virDomainPtr)
