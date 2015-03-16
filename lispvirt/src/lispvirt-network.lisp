@@ -177,6 +177,11 @@
 	(network virNetworkPtr)
 	(autostart (:pointer :int)))
 
+(defun virNetworkGetAutostart (network)
+        (with-foreign-objects ((autostart :int))
+                (%virNetworkGetAutostart network autostart)
+                (values (mem-ref autostart :int))))
+
 (defcfun "virNetworkSetAutostart" :int
 	(network virNetworkPtr)
 	(autostart :int))
@@ -190,7 +195,7 @@
 (defcfun "virNetworkDHCPLeaseFree" :void
 	(lease virNetworkDHCPLeasePtr))
 
-(defcfun ("virNetworkGetDHCPLeases" %) :int
+(defcfun ("virNetworkGetDHCPLeases" %virNetworkGetDHCPLeases) :int
 	(network virNetworkPtr)
 	(mac :string)
 	(leases (:pointer (:pointer virNetworkDHCPLeasePtr)))
