@@ -412,6 +412,13 @@
 	(nparams (:pointer :int))
 	(flags :uint))
 
+(defun virDomainBlockStatsFlags (domain disk flags)
+        (with-foreign-objects ((params virTypedParameterPtr)
+			       (nparams :int))
+                (%virDomainBlockStatsFlags domain disk params nparams flags)
+                (values (mem-ref params virTypedParameterPtr)
+			(mem-ref nparams :int))))
+
 (defcfun "virDomainInterfaceStats" :int
 	(domain virDomainPtr)
 	(path :string)
@@ -431,6 +438,13 @@
 	(params virTypedParameterPtr)
 	(nparams (:pointer :int))
 	(flags :uint))
+
+(defun virDomainGetInterfaceParameters (dom device flags)
+	(with-foreign-objects ((params virTypedParameterPtr)
+                               (nparams :int))
+                (%virDomainGetInterfaceParameters domain device params nparams flags)
+                (values (mem-ref params virTypedParameterPtr)
+                        (mem-ref nparams :int))))
 
 (defcfun "virDomainBlockPeek" :int
 	(domain virDomainPtr)
