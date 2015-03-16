@@ -36,6 +36,10 @@
 	   :virDomainDiskErrorPtr
 	   :virDomainJobInfoPtr
 	   :virDomainFSInfoPtr
+	   :virDomainState
+	   :virDomainNostateReason
+	   :virDomainRunningReason
+	   :virDomainBlockedReason
 	   :virDomainXMLFlags
 	   :virDomainCreateFlags
 	   :virDomainShutdownFlagValues
@@ -216,6 +220,38 @@
 ;;(defcstruct virDomainEventGraphicsAddress)
 
 (defcstruct virDomainFSInfo)
+
+(defcenum virDomainState
+	(:VIR_DOMAIN_NOSTATE 0)		;; no state.
+	(:VIR_DOMAIN_RUNNING 1)		;; the domain is running.
+	(:VIR_DOMAIN_BLOCKED 2)		;; the domain is blocked on resource.
+	(:VIR_DOMAIN_PAUSED 3)		;; the domain is paused by user.
+	(:VIR_DOMAIN_SHUTDOWN 4)	;; the domain is being shut down.
+	(:VIR_DOMAIN_SHUTOFF 5)		;; the domain is shut off.
+	(:VIR_DOMAIN_CRASHED 6)		;; the domain is crashed.
+	(:VIR_DOMAIN_PMSUSPENDED 7)	;; the domain is suspended by guest.
+	(:VIR_DOMAIN_LAST 8))
+
+(defcenum virDomainNostateReason
+	(:VIR_DOMAIN_NOSTATE_UNKNOWN 0)
+	(:VIR_DOMAIN_NOSTATE_LAST 1))
+
+(defcenum virDomainRunningReason
+	(:VIR_DOMAIN_RUNNING_UNKNOWN 0)
+	(:VIR_DOMAIN_RUNNING_BOOTED 1)			;; normal startup from boot.
+	(:VIR_DOMAIN_RUNNING_MIGRATED 2)		;; migrated from another host.
+	(:VIR_DOMAIN_RUNNING_RESTORED 3)		;; restored from a state file.
+	(:VIR_DOMAIN_RUNNING_FROM_SNAPSHOT 4)		;; restored from snapshot.
+	(:VIR_DOMAIN_RUNNING_UNPAUSED 5)		;; returned from paused state.
+	(:VIR_DOMAIN_RUNNING_MIGRATION_CANCELED 6)	;; returned from migration.
+	(:VIR_DOMAIN_RUNNING_SAVE_CANCELED 7)		;; returned from failed save process.
+	(:VIR_DOMAIN_RUNNING_WAKEUP 8)			;; returned from pmsuspended due to wakeup event.
+	(:VIR_DOMAIN_RUNNING_CRASHED 9)			;; resumed from crashed.
+	(:VIR_DOMAIN_RUNNING_LAST 10))
+
+(defcenum virDomainBlockedReason
+	(:VIR_DOMAIN_BLOCKED_UNKNOWN 0)		;; the reason is unknown */
+	(:VIR_DOMAIN_BLOCKED_LAST))
 
 (defcenum virDomainXMLFlags
 	(:VIR_DOMAIN_XML_SECURE 1)	;; dump security sensitive information too.
