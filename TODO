@@ -3,6 +3,7 @@
 - Add some missing structures.
 - Add many missing enums.
 - Implement alien functions.
+- Discover how to get array from pointers.
 - Check callback funtions.
 
 [Important]
