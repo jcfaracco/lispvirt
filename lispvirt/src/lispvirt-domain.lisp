@@ -40,6 +40,12 @@
 	   :virDomainNostateReason
 	   :virDomainRunningReason
 	   :virDomainBlockedReason
+	   :virDomainPausedReason
+	   :virDomainShutdownReason
+	   :virDomainShutoffReason
+	   :virDomainCrashedReason
+	   :virDomainPMSuspendedReason
+	   :virDomainPMSuspendedDiskReason
 	   :virDomainXMLFlags
 	   :virDomainCreateFlags
 	   :virDomainShutdownFlagValues
@@ -252,6 +258,51 @@
 (defcenum virDomainBlockedReason
 	(:VIR_DOMAIN_BLOCKED_UNKNOWN 0)		;; the reason is unknown */
 	(:VIR_DOMAIN_BLOCKED_LAST))
+
+(defcenum virDomainPausedReason
+	(:VIR_DOMAIN_PAUSED_UNKNOWN 0)		;; the reason is unknown.
+	(:VIR_DOMAIN_PAUSED_USER 1)		;; paused on user request.
+	(:VIR_DOMAIN_PAUSED_MIGRATION 2)	;; paused for offline migration.
+	(:VIR_DOMAIN_PAUSED_SAVE 3)		;; paused for save.
+	(:VIR_DOMAIN_PAUSED_DUMP 4)		;; paused for offline core dump.
+	(:VIR_DOMAIN_PAUSED_IOERROR 5)		;; paused due to a disk I/O error.
+	(:VIR_DOMAIN_PAUSED_WATCHDOG 6)		;; paused due to a watchdog event.
+	(:VIR_DOMAIN_PAUSED_FROM_SNAPSHOT 7)	;; paused after restoring from snapshot.
+	(:VIR_DOMAIN_PAUSED_SHUTTING_DOWN 8)	;; paused during shutdown process.
+	(:VIR_DOMAIN_PAUSED_SNAPSHOT 9)		;; paused while creating a snapshot.
+	(:VIR_DOMAIN_PAUSED_CRASHED 10)		;; paused due to a guest crash.
+	(:VIR_DOMAIN_PAUSED_LAST 11))
+
+(defcenum virDomainShutdownReason
+	(:VIR_DOMAIN_SHUTDOWN_UNKNOWN 0)	;; the reason is unknown.
+	(:VIR_DOMAIN_SHUTDOWN_USER 1)		;; shutting down on user request.
+	(:VIR_DOMAIN_SHUTDOWN_LAST 2))
+
+
+(defcenum virDomainShutoffReason
+	(:VIR_DOMAIN_SHUTOFF_UNKNOWN 0)		;; the reason is unknown.
+	(:VIR_DOMAIN_SHUTOFF_SHUTDOWN 1)	;; normal shutdown.
+	(:VIR_DOMAIN_SHUTOFF_DESTROYED 2)	;; forced poweroff.
+	(:VIR_DOMAIN_SHUTOFF_CRASHED 3)		;; domain crashed.
+	(:VIR_DOMAIN_SHUTOFF_MIGRATED 4)	;; migrated to another host.
+	(:VIR_DOMAIN_SHUTOFF_SAVED 5)		;; saved to a file.
+	(:VIR_DOMAIN_SHUTOFF_FAILED 6)		;; domain failed to start.
+	(:VIR_DOMAIN_SHUTOFF_FROM_SNAPSHOT 7)	;; restored from a snapshot which was taken while domain was shutoff.
+	(:VIR_DOMAIN_SHUTOFF_LAST 8))
+
+(defcenum virDomainCrashedReason
+	(:VIR_DOMAIN_CRASHED_UNKNOWN 0)		;; crashed for unknown reason.
+	(:VIR_DOMAIN_CRASHED_PANICKED 1)	;; domain panicked.
+	(:VIR_DOMAIN_CRASHED_LAST 2))
+
+
+(defcenum virDomainPMSuspendedReason
+	(:VIR_DOMAIN_PMSUSPENDED_UNKNOWN 0)
+	(:VIR_DOMAIN_PMSUSPENDED_LAST 1))
+
+(defcenum virDomainPMSuspendedDiskReason
+	(:VIR_DOMAIN_PMSUSPENDED_DISK_UNKNOWN 0)
+	(:VIR_DOMAIN_PMSUSPENDED_DISK_LAST 1))
 
 (defcenum virDomainXMLFlags
 	(:VIR_DOMAIN_XML_SECURE 1)	;; dump security sensitive information too.
