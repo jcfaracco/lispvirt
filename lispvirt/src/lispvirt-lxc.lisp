@@ -46,9 +46,9 @@
 
 (defun virDomainLxcEnterNamespace (domain nfdlist fdlist flags)
 	(with-foreign-objects ((noldfdlist-r :uint)
-                               (oldfdlist-r :int))
+                               (oldfdlist-r :pointer))
                 (%virDomainLxcEnterNamespace domain nfdlist fdlist noldfdlist-r oldfdlist-r flags)
-			(iter (with noldfdlist = (mem-ref noldfdlist-r :int))
+			(iter (with noldfdlist = (mem-ref noldfdlist-r :uint))
 			      (with oldfdlist = (mem-ref oldfdlist-r :pointer))
 			      (for i from 0 below noldfdlist)
 				(collect (mem-aref oldfdlist :int i)))))
