@@ -79,6 +79,13 @@
 	(maxnames :int)
 	(flags :uint))
 
+(defun virNodeListDevices (conn cap maxnames flags)
+	(with-foreign-objects ((names-r :pointer))
+                (%virNodeListDevices conn cap names-r maxnames flags)
+                        (iter (with names = (mem-ref names-r :pointer))
+                              (for i from 0 below maxnames)
+                                (collect (mem-aref names :string i)))))
+
 (defcfun "virNodeDeviceLookupSCSIHostByWWN" virNodeDevicePtr
 	(conn virConnectPtr)
 	(wwnn :string)
