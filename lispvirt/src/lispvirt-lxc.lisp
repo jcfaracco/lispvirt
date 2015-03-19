@@ -44,6 +44,15 @@
 	(oldfdlist (:pointer (:pointer :int)))
 	(flags :uint))
 
+(defun virDomainLxcEnterNamespace (domain nfdlist fdlist flags)
+	(with-foreign-objects ((noldfdlist-r :uint)
+                               (oldfdlist-r :int))
+                (%virDomainLxcEnterNamespace domain nfdlist fdlist noldfdlist-r oldfdlist-r flags)
+			(iter (with noldfdlist = (mem-ref noldfdlist-r :int))
+			      (with oldfdlist = (mem-ref oldfdlist-r :pointer))
+			      (for i from 0 below noldfdlist)
+				(collect (mem-aref oldfdlist :int i)))))
+
 (defcfun "virDomainLxcEnterSecurityLabel" :int
 	(model virSecurityModelPtr)
 	(label virSecurityLabelPtr)
