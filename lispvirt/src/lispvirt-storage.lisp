@@ -232,9 +232,11 @@
 	(maxnames :int))
 
 (defun virStoragePoolListVolumes (pool maxnames)
-	(with-foreign-objects ((names :string))
-                (%virStoragePoolListVolumes pool names maxnames)
-                (values (mem-ref names :string))))
+	(with-foreign-objects ((names-r :string))
+                (%virStoragePoolListVolumes pool names-r maxnames)
+			(iter (with names = (mem-ref names-r :pointer))
+                              (for i from 0 below maxnames)
+                                (collect (mem-aref names :string i)))))
 
 (defcfun ("virStoragePoolListAllVolumes" %virStoragePoolListAllVolumes) :int
 	(pool virStoragePoolPtr)
