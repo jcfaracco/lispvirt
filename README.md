@@ -54,3 +54,10 @@ To load this module you need to install the test module. There is an option into
 
     $ sudo make install_tests
 
+
+Contact
+-----------------------------
+
+If you want to contribute with Lispvirt, please contact me: jcfaracco@gmail.com.
+
+Any contribution would be very helpful to our project.
