@@ -84,7 +84,7 @@
 
 (defun print_domain (conn domain_name)
   (let ((domain (virDomainLookupByName conn domain_name)))
-    (format t "Domain Name: ~S~T Domain Memory: ~D~T Domain OS Hypervisor: ~S~%"
+    (format t "Domain Name: ~S~50T Domain Memory: ~D~75T Domain OS Hypervisor: ~S~%"
             domain_name
             (virDomainGetMaxMemory domain)
             (virDOmainGetOSType domain))))
@@ -122,6 +122,15 @@
           (loop for domain_name_defined in (cmd-list-defined conn) do
                (print_domain conn domain_name_defined))))))
 
+(defun cmd-usage (command-line)
+  (format t "Usage:~%~%")
+  (format t "~TCommands:~%")
+  (format t "~5Thelp: ~40Tshow commands that can be used.~%")
+  (format t "~5Tlist {--all|--inactive|None}: ~40Tlist the domains according the parameter used.~%")
+  (format t "~5Tdumpxml domain_name: ~40Tshow the XML with the domain settings.~%")
+  (format t "~5Tstart domain_name: ~40Tstart the domain according its domain_name.~%")
+  (format t "~5Tshutdown domain_name: ~40Tshutdown the domain according its domain_name.~%"))
+
 (defun lispvirsh-main ()
   (format t ">> ")
   (let ((command-line (split-by-one-space
@@ -136,6 +145,8 @@
         (cmd-dumpxml conn command-line))
     (if (string= (car command-line) "list")
         (cmd-list conn command-line))
+    (if (string= (car command-line) "help")
+        (cmd-usage command-line))
     (list option)))
     
 
