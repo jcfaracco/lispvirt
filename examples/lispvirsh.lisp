@@ -124,14 +124,6 @@
           (loop for domain_name_defined in (cmd-list-defined conn) do
                (print_domain conn domain_name_defined))))))
 
-(defun cmd-list-all (conn)
-  (let ((max_active (virConnectNumOfDomains conn))
-        (max_inactive (virConnectNumOfDefinedDomains conn)))
-    (setq domains_active (virConnectListDomains conn max_active))
-    (setq domains_defined (virConnectListDomains conn max_inactive))
-    (loop for domain_defined in domains_defined
-         collect (virDomainGetName domain_defined))))
-
 (defun lispvirsh-main ()
   (princ ">> ")
   (let ((command-line (split-by-one-space
@@ -152,7 +144,7 @@
 (defun lispvirsh-main-loop ()
   (loop with val = "quit"
      do (setq cmd (lispvirsh-main))
-       until (eq cmd "quit")))
+       until (string= (car cmd) "quit")))
 
 
 (lispvirsh-main-loop)
