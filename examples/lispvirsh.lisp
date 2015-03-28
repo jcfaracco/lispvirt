@@ -54,6 +54,7 @@
                                            :VIR_DOMAIN_START_FORCE_BOOT))
                 (progn
 		  (print "Starting...")
+                  (print "")
                   (virDomainCreateWithFlags domain flags)
                   (virDomainFree domain)))))))
 
@@ -65,6 +66,7 @@
         (if (not (eq flags 0))
             (progn
 	      (print "Shuting down...")
+              (print "")
               (virDomainShutdownFlags domain 1)
               (virDomainFree domain))
             (progn
@@ -82,6 +84,53 @@
                                                         :VIR_DOMAIN_XML_INACTIVE)))
         (print "Domain does not exists!"))))
 
+(defun print_domain (conn domain_name)
+  (let ((domain (virDomainLookupByName conn domain_name)))
+    (format t "Domain Name: ~S~T Domain Memory: ~D~T Domain OS Hypervisor: ~S~%"
+            domain_name
+            (virDomainGetMaxMemory domain)
+            (virDOmainGetOSType domain))))
+
+(defun cmd-list-active (conn)
+  (let ((max_active (virConnectNumOfDomains conn)))
+    (setq domains_ids (virConnectListDomains conn max_active))
+    (loop for domain in domains_ids
+         collect (virDomainGetName
+                  (virDomainLookupByID conn domain)))))
+
+(defun cmd-list-defined (conn)
+  (let ((max_defined (virConnectNumOfDefinedDomains conn)))
+    (setq domains_defined (virConnectListAllDomains conn max_defined))
+    (loop for domain in domains_defined
+       collect (virDomainGetName domain))))
+
+(defun cmd-list (conn command-line)
+  (let ((type (car (cdr command-line))))
+    (if (= (length command-line) 1)
+        (progn
+          (format t "Domains:~%")
+          (loop for domain_name_active in (cmd-list-active conn) do
+               (print_domain conn domain_name_active))))
+    (if (string= type "--all")
+        (progn
+          (format t "All Domains:~%")
+          (loop for domain_name_active in (cmd-list-active conn) do
+               (print_domain conn domain_name_active))
+          (loop for domain_name_defined in (cmd-list-defined conn) do
+               (print_domain conn domain_name_defined))))
+    (if (string= type "--inactive")
+        (progn
+          (format t "Inactive Domains:~%")
+          (loop for domain_name_defined in (cmd-list-defined conn) do
+               (print_domain conn domain_name_defined))))))
+
+(defun cmd-list-all (conn)
+  (let ((max_active (virConnectNumOfDomains conn))
+        (max_inactive (virConnectNumOfDefinedDomains conn)))
+    (setq domains_active (virConnectListDomains conn max_active))
+    (setq domains_defined (virConnectListDomains conn max_inactive))
+    (loop for domain_defined in domains_defined
+         collect (virDomainGetName domain_defined))))
 
 (defun lispvirsh-main ()
   (princ ">> ")
@@ -96,7 +145,7 @@
     (if (string= (car command-line) "dumpxml")
         (cmd-dumpxml conn command-line))
     (if (string= (car command-line) "list")
-        (print "Listing"))
+        (cmd-list conn command-line))
     (list option)))
     
 
