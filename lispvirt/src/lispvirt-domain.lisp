@@ -657,7 +657,17 @@
                 (values
                         (loop for i from 0 to (- maxids 1) collect (mem-aref ids :int i)))))
 
-(defcfun "virConnectListAllDomains" :int)
+(defcfun ("virConnectListAllDomains" %virConnectListAllDomains) :int
+	(conn virConnectPtr)
+	(domains :pointer :pointer)
+	(flags :uint))
+
+(defun virConnectListAllDomains (conn flags)
+	(with-foreign-objects ((domains :pointer))
+		(%virConnectListAllDomains conn domains flags)
+		(values
+                        (loop for i from 0 to (- (virConnectNumOfDefinedDomains conn) 1)
+				collect (mem-aref (mem-aref domains :pointer 0) :pointer i)))))
 
 (defcfun "virConnectNumOfDomains" :int
 	(conn virConnectPtr))
