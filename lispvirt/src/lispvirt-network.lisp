@@ -92,10 +92,17 @@
 	(names (:pointer :string))
 	(maxnames :int))
 
-(defcfun "virConnectListAllNetworks" :int
+(defcfun ("virConnectListAllNetworks" %virConnectListAllNetworks) :int
 	(conn virConnectPtr)
-	(nets (:pointer (:pointer virNetworkPtr)))
+	(nets :pointer :pointer)
 	(flags :uint))
+
+(defun virConnectListAllNetworks (conn flags)
+        (with-foreign-objects ((nets :pointer))
+                (%virConnectListAllNetworks conn nets flags)
+                (values
+                        (loop for i from 0 to (- (virConnectNumOfDefinedNetworks conn) 1)
+                                collect (mem-aref (mem-aref nets :pointer 0) :pointer i)))))
 
 
 ;; Lookup network by name or uuid.
