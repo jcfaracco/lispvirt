@@ -47,14 +47,13 @@
                                    :VIR_DOMAIN_NONE))
         (domain (virDomainLookupByName conn (car (cdr command-line)))))
     (if (not (eq (virDomainGetID domain) -1))
-        (print "Domain is already active!")
+        (format t "Domain is already active!~%")
         (if (not (eq domain nil))
             (if (boole boole-and flags
                        (foreign-enum-value 'virDomainCreateFlags
                                            :VIR_DOMAIN_START_FORCE_BOOT))
                 (progn
-		  (print "Starting...")
-                  (print "")
+		  (format t "Starting...~%")
                   (virDomainCreateWithFlags domain flags)
                   (virDomainFree domain)))))))
 
@@ -65,24 +64,23 @@
     (if (not (eq domain nil))
         (if (not (eq flags 0))
             (progn
-	      (print "Shuting down...")
-              (print "")
+	      (format t "Shuting down...~%")
               (virDomainShutdownFlags domain 1)
               (virDomainFree domain))
             (progn
-	      (print "Shuting down...")
+	      (format t "Shuting down...~%")
               (virDomainShutdown domain)
               (virDomainFree domain)))
-        (print "Domain does not exists!"))))
+        (format t "Domain does not exists!~%"))))
 
 
 (defun cmd-dumpxml (conn command-line)
   (let ((domain (virDomainLookupByName conn (car (cdr command-line)))))
     (if (not (eq domain nil))
-        (print (virDomainGetXMLDesc domain
+        (format t "~S~%" (virDomainGetXMLDesc domain
                                     (foreign-enum-value 'virDomainXMLFlags
                                                         :VIR_DOMAIN_XML_INACTIVE)))
-        (print "Domain does not exists!"))))
+        (format t "Domain does not exists!~%"))))
 
 (defun print_domain (conn domain_name)
   (let ((domain (virDomainLookupByName conn domain_name)))
@@ -125,7 +123,7 @@
                (print_domain conn domain_name_defined))))))
 
 (defun lispvirsh-main ()
-  (princ ">> ")
+  (format t ">> ")
   (let ((command-line (split-by-one-space
                        (get-command-line)))
         (conn (virConnectOpen "qemu:///system")))
