@@ -84,44 +84,60 @@
 
 (defun print_domain (conn domain_name)
   (let ((domain (virDomainLookupByName conn domain_name)))
-    (format t "Domain Name: ~S~50T Domain Memory: ~D~75T Domain OS Hypervisor: ~S~%"
+    (format t "~S~50T~D~65T ~S~%"
             domain_name
             (virDomainGetMaxMemory domain)
             (virDOmainGetOSType domain))))
 
-(defun cmd-list-active (conn)
+(defun cmd-list-domain-active (conn)
   (let ((max_active (virConnectNumOfDomains conn)))
     (setq domains_ids (virConnectListDomains conn max_active))
     (loop for domain in domains_ids
          collect (virDomainGetName
                   (virDomainLookupByID conn domain)))))
 
-(defun cmd-list-defined (conn)
+(defun cmd-list-domain-defined (conn)
   (let ((max_defined (virConnectNumOfDefinedDomains conn)))
     (setq domains_defined (virConnectListAllDomains conn max_defined))
     (loop for domain in domains_defined
        collect (virDomainGetName domain))))
 
-(defun cmd-list (conn command-line)
+(defun cmd-list-domain (conn command-line)
   (let ((type (car (cdr command-line))))
     (if (= (length command-line) 1)
         (progn
           (format t "Domains:~%")
-          (loop for domain_name_active in (cmd-list-active conn) do
+          (format t "Name:~50TMemory:~65T OS Hypervisor:~%")
+          (loop for domain_name_active in (cmd-list-domain-active conn) do
                (print_domain conn domain_name_active))))
     (if (string= type "--all")
         (progn
           (format t "All Domains:~%")
-          (loop for domain_name_active in (cmd-list-active conn) do
+          (format t "Name:~50TMemory:~65T OS Hypervisor:~%")
+          (loop for domain_name_active in (cmd-list-domain-active conn) do
                (print_domain conn domain_name_active))
-          (loop for domain_name_defined in (cmd-list-defined conn) do
+          (loop for domain_name_defined in (cmd-list-domain-defined conn) do
                (print_domain conn domain_name_defined))))
     (if (string= type "--inactive")
         (progn
           (format t "Inactive Domains:~%")
-          (loop for domain_name_defined in (cmd-list-defined conn) do
+          (format t "Name:~50TMemory:~65T OS Hypervisor:~%")
+          (loop for domain_name_defined in (cmd-list-domain-defined conn) do
                (print_domain conn domain_name_defined))))))
 
+(defun cmd-list-network-actives (conn)
+  (let ((max_nets (lispvirt-network:virConnectNumOfNetworks conn)))
+    (setq nets (lispvirt-network:virConnectListNetworks conn max_nets))
+    (if (not (= (length nets) 0))
+        (progn
+          (format t "Name:~20TActive:~30TPersistent:~40TAutostart:~%")
+          (loop for net in nets do
+               (format t "~S~20T~D~30T~D~40T~D~%"
+                       net
+                       (lispvirt-network:virNetworkIsActive (lispvirt-network:virNetworkLookupByName conn net))
+                       (lispvirt-network:virNetworkIsPersistent (lispvirt-network:virNetworkLookupByName conn net))
+                       (lispvirt-network:virNetworkGetAutostart (lispvirt-network:virNetworkLookupByName conn net))))))))
+ 
 (defun cmd-usage (command-line)
   (format t "Usage:~%~%")
   (format t "~TCommands:~%")
@@ -144,16 +160,16 @@
     (if (string= (car command-line) "dumpxml")
         (cmd-dumpxml conn command-line))
     (if (string= (car command-line) "list")
-        (cmd-list conn command-line))
+        (cmd-list-domain conn command-line))
+    (if (string= (car command-line) "net-list")
+        (cmd-list-network-actives conn))
     (if (string= (car command-line) "help")
         (cmd-usage command-line))
     (list option)))
-    
 
 (defun lispvirsh-main-loop ()
   (loop with val = "quit"
      do (setq cmd (lispvirsh-main))
        until (string= (car cmd) "quit")))
-
 
 (lispvirsh-main-loop)
