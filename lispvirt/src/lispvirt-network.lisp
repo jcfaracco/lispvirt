@@ -77,11 +77,17 @@
 (defcfun "virConnectNumOfNetworks" :int
 	(conn virConnectPtr))
 
-(defcfun "virConnectListNetworks" :int
+(defcfun ("virConnectListNetworks" %virConnectListNetworks) :int
 	(conn virConnectPtr)
-	(names (:pointer :string))
+	(names :pointer :string)
 	(maxnames :int))
 
+(defun virConnectListNetworks (conn maxnames)
+	(with-foreign-objects ((names :string))
+		(%virConnectListNetworks conn names maxnames)
+		(values
+			(loop for i from 0 to (- maxnames 1)
+				collect (mem-aref names :string i)))))
 
 ;; List inactive networks.
 (defcfun "virConnectNumOfDefinedNetworks" :int
