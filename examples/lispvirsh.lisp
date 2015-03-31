@@ -82,7 +82,7 @@
                                                         :VIR_DOMAIN_XML_INACTIVE)))
         (format t "Domain does not exists!~%"))))
 
-(defun print_domain (conn domain_name)
+(defun print-domain (conn domain_name)
   (let ((domain (virDomainLookupByName conn domain_name)))
     (format t "~S~50T~D~65T ~S~%"
             domain_name
@@ -109,21 +109,29 @@
           (format t "Domains:~%")
           (format t "Name:~50TMemory:~65T OS Hypervisor:~%")
           (loop for domain_name_active in (cmd-list-domain-active conn) do
-               (print_domain conn domain_name_active))))
+               (print-domain conn domain_name_active))))
     (if (string= type "--all")
         (progn
           (format t "All Domains:~%")
           (format t "Name:~50TMemory:~65T OS Hypervisor:~%")
           (loop for domain_name_active in (cmd-list-domain-active conn) do
-               (print_domain conn domain_name_active))
+               (print-domain conn domain_name_active))
           (loop for domain_name_defined in (cmd-list-domain-defined conn) do
-               (print_domain conn domain_name_defined))))
+               (print-domain conn domain_name_defined))))
     (if (string= type "--inactive")
         (progn
           (format t "Inactive Domains:~%")
           (format t "Name:~50TMemory:~65T OS Hypervisor:~%")
           (loop for domain_name_defined in (cmd-list-domain-defined conn) do
-               (print_domain conn domain_name_defined))))))
+               (print-domain conn domain_name_defined))))))
+
+(defun print-network (conn net)
+  (let ((domain (lispvirt-network:virNetworkLookupByName conn net)))
+    (format t "~S~20T~D~30T~D~40T~D~%"
+            net
+            (lispvirt-network:virNetworkIsActive domain)
+            (lispvirt-network:virNetworkIsPersistent domain)
+            (lispvirt-network:virNetworkGetAutostart domain))))
 
 (defun cmd-list-network-actives (conn)
   (let ((max_nets (lispvirt-network:virConnectNumOfNetworks conn)))
@@ -132,11 +140,7 @@
         (progn
           (format t "Name:~20TActive:~30TPersistent:~40TAutostart:~%")
           (loop for net in nets do
-               (format t "~S~20T~D~30T~D~40T~D~%"
-                       net
-                       (lispvirt-network:virNetworkIsActive (lispvirt-network:virNetworkLookupByName conn net))
-                       (lispvirt-network:virNetworkIsPersistent (lispvirt-network:virNetworkLookupByName conn net))
-                       (lispvirt-network:virNetworkGetAutostart (lispvirt-network:virNetworkLookupByName conn net))))))))
+               (print-network conn net))))))
  
 (defun cmd-usage (command-line)
   (format t "Usage:~%~%")
