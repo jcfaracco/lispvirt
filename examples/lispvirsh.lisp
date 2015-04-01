@@ -43,6 +43,7 @@
        collect i))
 
 (defun cmd-start (conn command-line)
+  "Start a domain specified by command line."
   (let ((flags (foreign-enum-value 'virDomainCreateFlags
                                    :VIR_DOMAIN_NONE))
         (domain (virDomainLookupByName conn (car (cdr command-line)))))
@@ -58,6 +59,7 @@
                   (virDomainFree domain)))))))
 
 (defun cmd-shutdown (conn command-line)
+  "Shutdown a domain specified by command line."
   (let ((domain (virDomainLookupByName conn (car (cdr command-line))))
         (flags (foreign-enum-value 'virDomainShutdownFlagValues
                                    :VIR_DOMAIN_SHUTDOWN_ACPI_POWER_BTN)))
@@ -75,6 +77,7 @@
 
 
 (defun cmd-dumpxml (conn command-line)
+  "Print the XML description of a domain specified by command line."
   (let ((domain (virDomainLookupByName conn (car (cdr command-line)))))
     (if (not (eq domain nil))
         (format t "~S~%" (virDomainGetXMLDesc domain
@@ -83,6 +86,7 @@
         (format t "Domain does not exists!~%"))))
 
 (defun print-domain (conn domain_name)
+  "Print a pretty output for domain settings."
   (let ((domain (virDomainLookupByName conn domain_name)))
     (format t "~S~50T~D~65T ~S~%"
             domain_name
@@ -90,6 +94,7 @@
             (virDOmainGetOSType domain))))
 
 (defun cmd-list-domain-active (conn)
+  "List all active domains."
   (let ((max_active (virConnectNumOfDomains conn)))
     (setq domains_ids (virConnectListDomains conn max_active))
     (loop for domain in domains_ids
@@ -97,12 +102,14 @@
                   (virDomainLookupByID conn domain)))))
 
 (defun cmd-list-domain-defined (conn)
+  "List only the defined (inactive) domains."
   (let ((max_defined (virConnectNumOfDefinedDomains conn)))
     (setq domains_defined (virConnectListAllDomains conn max_defined))
     (loop for domain in domains_defined
        collect (virDomainGetName domain))))
 
 (defun cmd-list-domain (conn command-line)
+  "List the domains considering the input passed by command line. It can list the active, inactive and all domains."
   (let ((type (car (cdr command-line))))
     (if (= (length command-line) 1)
         (progn
@@ -125,7 +132,10 @@
           (loop for domain_name_defined in (cmd-list-domain-defined conn) do
                (print-domain conn domain_name_defined))))))
 
+;; TODO: we should use nicknames to avoid this long name when we call a function
+;; defined in another package.
 (defun print-network (conn net)
+  "Print a pretty output for network settings."
   (let ((domain (lispvirt-network:virNetworkLookupByName conn net)))
     (format t "~S~20T~D~30T~D~40T~D~%"
             net
@@ -134,6 +144,7 @@
             (lispvirt-network:virNetworkGetAutostart domain))))
 
 (defun cmd-list-network-actives (conn)
+  "List all active networks."
   (let ((max_nets (lispvirt-network:virConnectNumOfNetworks conn)))
     (setq nets (lispvirt-network:virConnectListNetworks conn max_nets))
     (if (not (= (length nets) 0))
@@ -143,6 +154,7 @@
                (print-network conn net))))))
  
 (defun cmd-usage (command-line)
+  "Print which commands you can use on terminal. This function is used for help too."
   (format t "Usage:~%~%")
   (format t "~TCommands:~%")
   (format t "~5Thelp: ~40Tshow commands that can be used.~%")
@@ -152,6 +164,7 @@
   (format t "~5Tshutdown domain_name: ~40Tshutdown the domain according its domain_name.~%"))
 
 (defun lispvirsh-main ()
+  "Function to set the correct option for lispvirsh terminal."
   (format t ">> ")
   (let ((command-line (split-by-one-space
                        (get-command-line)))
@@ -172,6 +185,7 @@
     (list option)))
 
 (defun lispvirsh-main-loop ()
+  "Function to call the main loop for lispvirsh terminal while the user does not insert the 'quit' command."
   (loop with val = "quit"
      do (setq cmd (lispvirsh-main))
        until (string= (car cmd) "quit")))
