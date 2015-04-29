@@ -304,6 +304,69 @@
 	(:VIR_DOMAIN_PMSUSPENDED_DISK_UNKNOWN 0)
 	(:VIR_DOMAIN_PMSUSPENDED_DISK_LAST 1))
 
+(defcenum virDomainControlState
+	(:VIR_DOMAIN_CONTROL_OK 0)		;; operational, ready to accept commands.
+	(:VIR_DOMAIN_CONTROL_JOB 1)		;; background job is running (can be monitored by virDomainGetJobInfo); only limited set of commands may be allowed.
+	(:VIR_DOMAIN_CONTROL_OCCUPIED 2)	;; occupied by a running command.
+	(:VIR_DOMAIN_CONTROL_ERROR 3)		;; unusable, domain cannot be fully operated, possible reason is provided in the details field.
+	(:VIR_DOMAIN_CONTROL_LAST 4))
+
+(defcenum virDomainControlErrorReason
+	(:VIR_DOMAIN_CONTROL_ERROR_REASON_NONE 0)	;; server didn't provide a reason.
+	(:VIR_DOMAIN_CONTROL_ERROR_REASON_UNKNOWN 1)	;; unknown reason for the error.
+	(:VIR_DOMAIN_CONTROL_ERROR_REASON_MONITOR 2)	;; monitor connection is broken.
+	(:VIR_DOMAIN_CONTROL_ERROR_REASON_INTERNAL 3)	;; error caused due to internal failure in libvirt.
+	(:VIR_DOMAIN_CONTROL_ERROR_REASON_LAST 4))
+
+(defcenum virDomainModificationImpact
+	(:VIR_DOMAIN_AFFECT_CURRENT 0)	;; Affect current domain state.
+	(:VIR_DOMAIN_AFFECT_LIVE 1)	;; Affect running domain state.
+	(:VIR_DOMAIN_AFFECT_CONFIG 2))	;; Affect persistent domain state.
+	;; 1 << 2 is reserved for virTypedParameterFlags.
+
+(defcenum virDomainMemoryStatTags
+	(:VIR_DOMAIN_MEMORY_STAT_SWAP_IN 0)
+	(:VIR_DOMAIN_MEMORY_STAT_SWAP_OUT 1) 		;; The total amount of memory written out to swap space (in kB).
+	(:VIR_DOMAIN_MEMORY_STAT_MAJOR_FAULT 2)
+	(:VIR_DOMAIN_MEMORY_STAT_MINOR_FAULT 3)
+	(:VIR_DOMAIN_MEMORY_STAT_UNUSED 4)
+	(:VIR_DOMAIN_MEMORY_STAT_AVAILABLE 5)
+	(:VIR_DOMAIN_MEMORY_STAT_ACTUAL_BALLOON 6)	;; Current balloon value (in KB).
+	(:VIR_DOMAIN_MEMORY_STAT_RSS 7)		;; Resident Set Size of the process running the domain. This value is in kB.
+	(:VIR_DOMAIN_MEMORY_STAT_NR 8)
+	(:VIR_DOMAIN_MEMORY_STAT_LAST 8))
+
+(defcenum virDomainCoreDumpFlags
+	(:VIR_DUMP_CRASH 1)		;; crash after dump.
+	(:VIR_DUMP_LIVE 2)		;; live dump.
+	(:VIR_DUMP_BYPASS_CACHE 4)	;; avoid file system cache pollution.
+	(:VIR_DUMP_RESET 8)		;; reset domain after dump finishes.
+	(:VIR_DUMP_MEMORY_ONLY 16))	;; use dump-guest-memory.
+
+(defcenum virDomainCoreDumpFormat
+	(:VIR_DOMAIN_CORE_DUMP_FORMAT_RAW 1)		;; dump guest memory in raw format */
+	(:VIR_DOMAIN_CORE_DUMP_FORMAT_KDUMP_ZLIB 2)	;; kdump-compressed format, with zlib compression */
+	(:VIR_DOMAIN_CORE_DUMP_FORMAT_KDUMP_LZO 3)	;; kdump-compressed format, with lzo compression */
+	(:VIR_DOMAIN_CORE_DUMP_FORMAT_KDUMP_SNAPPY 4)	;; kdump-compressed format, with snappy compression */
+	(:VIR_DOMAIN_CORE_DUMP_FORMAT_LAST 5))
+
+(defcenum virDomainMigrateFlags
+	(:VIR_MIGRATE_LIVE 1)			;; live migration.
+	(:VIR_MIGRATE_PEER2PEER 2)		;; direct source -> dest host control channel.
+	(:VIR_MIGRATE_TUNNELLED 4)		;; tunnel migration data over libvirtd connection.
+	(:VIR_MIGRATE_PERSIST_DEST 8)		;; persist the VM on the destination.
+	(:VIR_MIGRATE_UNDEFINE_SOURCE 16)	;; undefine the VM on the source.
+	(:VIR_MIGRATE_PAUSED 32)		;; pause on remote side.
+	(:VIR_MIGRATE_NON_SHARED_DISK 64)	;; migration with non-shared storage with full disk copy.
+	(:VIR_MIGRATE_NON_SHARED_INC 128)	;; migration with non-shared storage with incremental copy (same base image shared between source and destination).
+	(:VIR_MIGRATE_CHANGE_PROTECTION 256)	;; protect for changing domain configuration through the whole migration process; this will be used automatically when supported.
+	(:VIR_MIGRATE_UNSAFE 512)		;; force migration even if it is considered unsafe.
+	(:VIR_MIGRATE_OFFLINE 1024)		;; offline migrate.
+	(:VIR_MIGRATE_COMPRESSED 2048)		;; compress data during migration.
+	(:VIR_MIGRATE_ABORT_ON_ERROR 4096)	;; abort migration on I/O errors happened during migration.
+	(:VIR_MIGRATE_AUTO_CONVERGE 8192)	;; force convergence.
+	(:VIR_MIGRATE_RDMA_PIN_ALL 16384))	;; RDMA memory pinning.
+
 (defcenum virDomainXMLFlags
 	(:VIR_DOMAIN_XML_SECURE 1)	;; dump security sensitive information too.
 	(:VIR_DOMAIN_XML_INACTIVE 2)	;; dump inactive domain information.
