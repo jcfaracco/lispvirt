@@ -278,7 +278,6 @@
 	(:VIR_DOMAIN_SHUTDOWN_USER 1)		;; shutting down on user request.
 	(:VIR_DOMAIN_SHUTDOWN_LAST 2))
 
-
 (defcenum virDomainShutoffReason
 	(:VIR_DOMAIN_SHUTOFF_UNKNOWN 0)		;; the reason is unknown.
 	(:VIR_DOMAIN_SHUTOFF_SHUTDOWN 1)	;; normal shutdown.
@@ -294,7 +293,6 @@
 	(:VIR_DOMAIN_CRASHED_UNKNOWN 0)		;; crashed for unknown reason.
 	(:VIR_DOMAIN_CRASHED_PANICKED 1)	;; domain panicked.
 	(:VIR_DOMAIN_CRASHED_LAST 2))
-
 
 (defcenum virDomainPMSuspendedReason
 	(:VIR_DOMAIN_PMSUSPENDED_UNKNOWN 0)
@@ -367,12 +365,6 @@
 	(:VIR_MIGRATE_AUTO_CONVERGE 8192)	;; force convergence.
 	(:VIR_MIGRATE_RDMA_PIN_ALL 16384))	;; RDMA memory pinning.
 
-(defcenum virDomainXMLFlags
-	(:VIR_DOMAIN_XML_SECURE 1)	;; dump security sensitive information too.
-	(:VIR_DOMAIN_XML_INACTIVE 2)	;; dump inactive domain information.
-	(:VIR_DOMAIN_XML_UPDATE_CPU 4)	;; update guest CPU requirements according to host CPU.
-	(:VIR_DOMAIN_XML_MIGRATABLE 8))	;; dump XML suitable for migration.
-
 (defcenum virDomainCreateFlags
 	(:VIR_DOMAIN_NONE 0)			;; Default behavior.
 	(:VIR_DOMAIN_START_PAUSED 1)		;; Launch guest in paused state.
@@ -396,6 +388,39 @@
 	(:VIR_DOMAIN_REBOOT_INITCTL 4)		;; Use initctl.
 	(:VIR_DOMAIN_REBOOT_SIGNAL 8)		;; Send a signal.
 	(:VIR_DOMAIN_REBOOT_PARAVIRT 16))	;; Use paravirt guest control.
+
+(defcenum virDomainDestroyFlagsValues
+	(:VIR_DOMAIN_DESTROY_DEFAULT 0)		;; Default behavior - could lead to data loss!!
+	(:VIR_DOMAIN_DESTROY_GRACEFUL 1))	;; only SIGTERM, no SIGKILL.
+
+(defcenum virDomainSaveRestoreFlags
+	(:VIR_DOMAIN_SAVE_BYPASS_CACHE 1)	;; Avoid file system cache pollution.
+	(:VIR_DOMAIN_SAVE_RUNNING 2)		;; Favor running over paused.
+	(:VIR_DOMAIN_SAVE_PAUSED 4))		;; Favor paused over running.
+
+(defcenum virDomainMemoryModFlags
+	(:VIR_DOMAIN_MEM_CURRENT 0)
+	(:VIR_DOMAIN_MEM_LIVE 1)
+	(:VIR_DOMAIN_MEM_CONFIG 2)
+	(:VIR_DOMAIN_MEM_MAXIMUM 4))	;; affect Max rather than current */
+
+(defcenum virDomainNumatuneMemMode
+	(:VIR_DOMAIN_NUMATUNE_MEM_STRICT 0)
+	(:VIR_DOMAIN_NUMATUNE_MEM_PREFERRED 1)
+	(:VIR_DOMAIN_NUMATUNE_MEM_INTERLEAVE 2)
+	(:VIR_DOMAIN_NUMATUNE_MEM_LAST 3))	;; This constant is subject to change */
+
+(defcenum virDomainMetadataType
+	(:VIR_DOMAIN_METADATA_DESCRIPTION 0)	;; Operate on <description>.
+	(:VIR_DOMAIN_METADATA_TITLE 1)		;; Operate on <title>.
+	(:VIR_DOMAIN_METADATA_ELEMENT 2)	;; Operate on <metadata>.
+	(:VIR_DOMAIN_METADATA_LAST 3))
+
+(defcenum virDomainXMLFlags
+	(:VIR_DOMAIN_XML_SECURE 1)	;; dump security sensitive information too.
+	(:VIR_DOMAIN_XML_INACTIVE 2)	;; dump inactive domain information.
+	(:VIR_DOMAIN_XML_UPDATE_CPU 4)	;; update guest CPU requirements according to host CPU.
+	(:VIR_DOMAIN_XML_MIGRATABLE 8))	;; dump XML suitable for migration.
 
 
 ;; Pointers mapping to structures.
