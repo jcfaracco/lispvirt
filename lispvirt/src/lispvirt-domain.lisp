@@ -402,13 +402,13 @@
 	(:VIR_DOMAIN_MEM_CURRENT 0)
 	(:VIR_DOMAIN_MEM_LIVE 1)
 	(:VIR_DOMAIN_MEM_CONFIG 2)
-	(:VIR_DOMAIN_MEM_MAXIMUM 4))	;; affect Max rather than current */
+	(:VIR_DOMAIN_MEM_MAXIMUM 4))	;; affect Max rather than current.
 
 (defcenum virDomainNumatuneMemMode
 	(:VIR_DOMAIN_NUMATUNE_MEM_STRICT 0)
 	(:VIR_DOMAIN_NUMATUNE_MEM_PREFERRED 1)
 	(:VIR_DOMAIN_NUMATUNE_MEM_INTERLEAVE 2)
-	(:VIR_DOMAIN_NUMATUNE_MEM_LAST 3))	;; This constant is subject to change */
+	(:VIR_DOMAIN_NUMATUNE_MEM_LAST 3))	;; This constant is subject to change.
 
 (defcenum virDomainMetadataType
 	(:VIR_DOMAIN_METADATA_DESCRIPTION 0)	;; Operate on <description>.
@@ -421,6 +421,51 @@
 	(:VIR_DOMAIN_XML_INACTIVE 2)	;; dump inactive domain information.
 	(:VIR_DOMAIN_XML_UPDATE_CPU 4)	;; update guest CPU requirements according to host CPU.
 	(:VIR_DOMAIN_XML_MIGRATABLE 8))	;; dump XML suitable for migration.
+
+(defcenum virDomainBlockResizeFlags
+	(:VIR_DOMAIN_BLOCK_RESIZE_BYTES 1))	;; size in bytes instead of KiB.
+
+(defcenum virDomainMemoryFlags
+	(:VIR_MEMORY_VIRTUAL 1)		;; addresses are virtual addresses.
+	(:VIR_MEMORY_PHYSICAL 2))	;; addresses are physical addresses.
+
+(defcenum virDomainDefineFlags
+	(:VIR_DOMAIN_DEFINE_VALIDATE 1))	;; Validate the XML document against schema.
+
+(defcenum virDomainUndefineFlagsValues
+	(:VIR_DOMAIN_UNDEFINE_MANAGED_SAVE 1)		;; Also remove any managed save.
+	(:VIR_DOMAIN_UNDEFINE_SNAPSHOTS_METADATA 2)	;; If last use of domain, then also remove any snapshot metadata.
+	(:VIR_DOMAIN_UNDEFINE_NVRAM 4))			;; Also remove any nvram file.
+	;; Future undefine control flags should come here.
+
+(defcenum virConnectListAllDomainsFlags
+	(:VIR_CONNECT_LIST_DOMAINS_ACTIVE 1)
+	(:VIR_CONNECT_LIST_DOMAINS_INACTIVE 2)
+	(:VIR_CONNECT_LIST_DOMAINS_PERSISTENT 4)
+	(:VIR_CONNECT_LIST_DOMAINS_TRANSIENT 8)
+	(:VIR_CONNECT_LIST_DOMAINS_RUNNING 16)
+	(:VIR_CONNECT_LIST_DOMAINS_PAUSED 32)
+	(:VIR_CONNECT_LIST_DOMAINS_SHUTOFF 64)
+	(:VIR_CONNECT_LIST_DOMAINS_OTHER 128)
+	(:VIR_CONNECT_LIST_DOMAINS_MANAGEDSAVE 256)
+	(:VIR_CONNECT_LIST_DOMAINS_NO_MANAGEDSAVE 512)
+	(:VIR_CONNECT_LIST_DOMAINS_AUTOSTART 1024)
+	(:VIR_CONNECT_LIST_DOMAINS_NO_AUTOSTART 2048)
+	(:VIR_CONNECT_LIST_DOMAINS_HAS_SNAPSHOT 4096)
+	(:VIR_CONNECT_LIST_DOMAINS_NO_SNAPSHOT 8192))
+
+(defenum virVcpuState
+	(:VIR_VCPU_OFFLINE 0)	;; the virtual CPU is offline.
+	(:VIR_VCPU_RUNNING 1)	;; the virtual CPU is running.
+	(:VIR_VCPU_BLOCKED 2)	;; the virtual CPU is blocked on resource.
+	(:VIR_VCPU_LAST 3))
+
+(defcenum virDomainVcpuFlags
+	(:VIR_DOMAIN_VCPU_CURRENT 0)
+	(:VIR_DOMAIN_VCPU_LIVE 1)
+	(:VIR_DOMAIN_VCPU_CONFIG 2)
+	(:VIR_DOMAIN_VCPU_MAXIMUM 4)	;; Max rather than current count.
+	(:VIR_DOMAIN_VCPU_GUEST 8))	;; Modify state of the cpu in the guest.
 
 
 ;; Pointers mapping to structures.
