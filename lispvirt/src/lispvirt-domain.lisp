@@ -633,6 +633,49 @@
 	(:VIR_DOMAIN_EVENT_CRASHED 8)
 	(:VIR_DOMAIN_EVENT_LAST 9))
 
+(defcenum virDomainEventDefinedDetailType
+	(:VIR_DOMAIN_EVENT_DEFINED_ADDED 0)	;; Newly created config file.
+	(:VIR_DOMAIN_EVENT_DEFINED_UPDATED 1)   ;; Changed config file.
+	(:VIR_DOMAIN_EVENT_DEFINED_LAST 2))
+
+(defcenum virDomainEventUndefinedDetailType
+	(:VIR_DOMAIN_EVENT_UNDEFINED_REMOVED 0)	;; Deleted the config file.
+	(:VIR_DOMAIN_EVENT_UNDEFINED_LAST 1))
+
+(defcenum virDomainEventStartedDetailType
+	(:VIR_DOMAIN_EVENT_STARTED_BOOTED 0)		;; Normal startup from boot.
+	(:VIR_DOMAIN_EVENT_STARTED_MIGRATED 1)		;; Incoming migration from another host.
+	(:VIR_DOMAIN_EVENT_STARTED_RESTORED 2)		;; Restored from a state file.
+	(:VIR_DOMAIN_EVENT_STARTED_FROM_SNAPSHOT 3)	;; Restored from snapshot.
+	(:VIR_DOMAIN_EVENT_STARTED_WAKEUP 4)		;; Started due to wakeup event.
+	(:VIR_DOMAIN_EVENT_STARTED_LAST 5))
+
+(defcenum virDomainEventSuspendedDetailType
+	(:VIR_DOMAIN_EVENT_SUSPENDED_PAUSED 0)		;; Normal suspend due to admin pause.
+	(:VIR_DOMAIN_EVENT_SUSPENDED_MIGRATED 1)	;; Suspended for offline migration.
+	(:VIR_DOMAIN_EVENT_SUSPENDED_IOERROR 2)		;; Suspended due to a disk I/O error.
+	(:VIR_DOMAIN_EVENT_SUSPENDED_WATCHDOG 3)	;; Suspended due to a watchdog firing.
+	(:VIR_DOMAIN_EVENT_SUSPENDED_RESTORED 4)	;; Restored from paused state file.
+	(:VIR_DOMAIN_EVENT_SUSPENDED_FROM_SNAPSHOT 5)	;; Restored from paused snapshot.
+	(:VIR_DOMAIN_EVENT_SUSPENDED_API_ERROR 6)	;; suspended after failure during libvirt API call.
+	(:VIR_DOMAIN_EVENT_SUSPENDED_LAST 7))
+
+(defcenum virDomainEventResumedDetailType
+	(:VIR_DOMAIN_EVENT_RESUMED_UNPAUSED 0)		;; Normal resume due to admin unpause.
+	(:VIR_DOMAIN_EVENT_RESUMED_MIGRATED 1)		;; Resumed for completion of migration.
+	(:VIR_DOMAIN_EVENT_RESUMED_FROM_SNAPSHOT 2)	;; Resumed from snapshot.
+	(:VIR_DOMAIN_EVENT_RESUMED_LAST 3))
+
+(defcenum virDomainEventStoppedDetailType
+	(:VIR_DOMAIN_EVENT_STOPPED_SHUTDOWN 0)		;; Normal shutdown.
+	(:VIR_DOMAIN_EVENT_STOPPED_DESTROYED 1)		;; Forced poweroff from host.
+	(:VIR_DOMAIN_EVENT_STOPPED_CRASHED 2)		;; Guest crashed.
+	(:VIR_DOMAIN_EVENT_STOPPED_MIGRATED 3)		;; Migrated off to another host.
+	(:VIR_DOMAIN_EVENT_STOPPED_SAVED 4)		;; Saved to a state file.
+	(:VIR_DOMAIN_EVENT_STOPPED_FAILED 5)		;; Host emulator/mgmt failed.
+	(:VIR_DOMAIN_EVENT_STOPPED_FROM_SNAPSHOT 6)	;; offline snapshot loaded.
+	(:VIR_DOMAIN_EVENT_STOPPED_LAST 7))
+
 
 ;; Pointers mapping to structures.
 (defctype virDomainPtr (:pointer virDomain))
