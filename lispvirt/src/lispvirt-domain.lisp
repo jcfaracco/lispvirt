@@ -454,7 +454,7 @@
 	(:VIR_CONNECT_LIST_DOMAINS_HAS_SNAPSHOT 4096)
 	(:VIR_CONNECT_LIST_DOMAINS_NO_SNAPSHOT 8192))
 
-(defenum virVcpuState
+(defcenum virVcpuState
 	(:VIR_VCPU_OFFLINE 0)	;; the virtual CPU is offline.
 	(:VIR_VCPU_RUNNING 1)	;; the virtual CPU is running.
 	(:VIR_VCPU_BLOCKED 2)	;; the virtual CPU is blocked on resource.
@@ -509,10 +509,10 @@
 	(:VIR_DOMAIN_BLOCK_JOB_INFO_BANDWIDTH_BYTES 1))	;; bandwidth in bytes/s instead of MiB/s.
 
 (defcenum virDomainBlockJobSetSpeedFlags
-	(:VIR_DOMAIN_BLOCK_JOB_SPEED_BANDWIDTH_BYTES 1)	;; bandwidth in bytes/s instead of MiB/s.
+	(:VIR_DOMAIN_BLOCK_JOB_SPEED_BANDWIDTH_BYTES 1))	;; bandwidth in bytes/s instead of MiB/s.
 
 (defcenum virDomainBlockPullFlags
-	(:VIR_DOMAIN_BLOCK_PULL_BANDWIDTH_BYTES 64)	;; bandwidth in bytes/s instead of MiB/s.
+	(:VIR_DOMAIN_BLOCK_PULL_BANDWIDTH_BYTES 64))	;; bandwidth in bytes/s instead of MiB/s.
 
 (defcenum virDomainBlockRebaseFlags
 	(:VIR_DOMAIN_BLOCK_REBASE_SHALLOW 1)		;; Limit copy to top of source backing chain.
@@ -675,6 +675,58 @@
 	(:VIR_DOMAIN_EVENT_STOPPED_FAILED 5)		;; Host emulator/mgmt failed.
 	(:VIR_DOMAIN_EVENT_STOPPED_FROM_SNAPSHOT 6)	;; offline snapshot loaded.
 	(:VIR_DOMAIN_EVENT_STOPPED_LAST 7))
+
+(defcenum virDomainEventShutdownDetailType
+	(:VIR_DOMAIN_EVENT_SHUTDOWN_FINISHED 0)	;; Guest finished shutdown sequence.
+	(:VIR_DOMAIN_EVENT_SHUTDOWN_LAST 1))
+
+(defcenum virDomainEventPMSuspendedDetailType
+	(:VIR_DOMAIN_EVENT_PMSUSPENDED_MEMORY 0)	;; Guest was PM suspended to memory.
+	(:VIR_DOMAIN_EVENT_PMSUSPENDED_DISK 1)		;; Guest was PM suspended to disk.
+	(:VIR_DOMAIN_EVENT_PMSUSPENDED_LAST 2))
+
+(defcenum virDomainEventCrashedDetailType
+	(:VIR_DOMAIN_EVENT_CRASHED_PANICKED 0) ;; Guest was panicked.
+	(:VIR_DOMAIN_EVENT_CRASHED_LAST 1))
+
+(defcenum virDomainJobType
+	(:VIR_DOMAIN_JOB_NONE 0)	;; No job is active.
+	(:VIR_DOMAIN_JOB_BOUNDED 1)	;; Job with a finite completion time.
+	(:VIR_DOMAIN_JOB_UNBOUNDED 2)	;; Job without a finite completion time.
+	(:VIR_DOMAIN_JOB_COMPLETED 3)	;; Job has finished, but isn't cleaned up.
+	(:VIR_DOMAIN_JOB_FAILED 4)	;; Job hit error, but isn't cleaned up.
+	(:VIR_DOMAIN_JOB_CANCELLED 5)	;; Job was aborted, but isn't cleaned up.
+	(:VIR_DOMAIN_JOB_LAST 6))
+
+(defcenum virDomainGetJobStatsFlags
+	(:VIR_DOMAIN_JOB_STATS_COMPLETED 1))	;; return stats of a recently completed job.
+
+(defcenum virDomainEventWatchdogAction
+	(:VIR_DOMAIN_EVENT_WATCHDOG_NONE 0)		;; No action, watchdog ignored.
+	(:VIR_DOMAIN_EVENT_WATCHDOG_PAUSE 1)		;; Guest CPUs are paused.
+	(:VIR_DOMAIN_EVENT_WATCHDOG_RESET 2)		;; Guest CPUs are reset.
+	(:VIR_DOMAIN_EVENT_WATCHDOG_POWEROFF 3)		;; Guest is forcibly powered off.
+	(:VIR_DOMAIN_EVENT_WATCHDOG_SHUTDOWN 4)		;; Guest is requested to gracefully shutdown.
+	(:VIR_DOMAIN_EVENT_WATCHDOG_DEBUG 5)		;; No action, a debug message logged.
+	(:VIR_DOMAIN_EVENT_WATCHDOG_LAST 6))
+
+(defcenum virDomainEventIOErrorAction
+	(:VIR_DOMAIN_EVENT_IO_ERROR_NONE 0)	;; No action, IO error ignored.
+	(:VIR_DOMAIN_EVENT_IO_ERROR_PAUSE 1)	;; Guest CPUs are paused.
+	(:VIR_DOMAIN_EVENT_IO_ERROR_REPORT 2)	;; IO error reported to guest OS.
+	(:VIR_DOMAIN_EVENT_IO_ERROR_LAST 3))
+
+(defcenum virDomainEventGraphicsPhase
+	(:VIR_DOMAIN_EVENT_GRAPHICS_CONNECT 0)	;; Initial socket connection established.
+	(:VIR_DOMAIN_EVENT_GRAPHICS_INITIALIZE 1)	;; Authentication & setup completed.
+	(:VIR_DOMAIN_EVENT_GRAPHICS_DISCONNECT 2)	;; Final socket disconnection.
+	(:VIR_DOMAIN_EVENT_GRAPHICS_LAST 3))
+
+(defcenum virDomainEventGraphicsAddressType
+	(:VIR_DOMAIN_EVENT_GRAPHICS_ADDRESS_IPV4 0)	;; IPv4 address.
+	(:VIR_DOMAIN_EVENT_GRAPHICS_ADDRESS_IPV6 1)	;; IPv6 address.
+	(:VIR_DOMAIN_EVENT_GRAPHICS_ADDRESS_UNIX 2)	;; UNIX socket path.
+	(:VIR_DOMAIN_EVENT_GRAPHICS_ADDRESS_LAST 3))
 
 
 ;; Pointers mapping to structures.
