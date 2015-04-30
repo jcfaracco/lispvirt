@@ -467,6 +467,53 @@
 	(:VIR_DOMAIN_VCPU_MAXIMUM 4)	;; Max rather than current count.
 	(:VIR_DOMAIN_VCPU_GUEST 8))	;; Modify state of the cpu in the guest.
 
+(defcenum virDomainDeviceModifyFlags
+	(:VIR_DOMAIN_DEVICE_MODIFY_CURRENT 0)
+	(:VIR_DOMAIN_DEVICE_MODIFY_LIVE 1)
+	(:VIR_DOMAIN_DEVICE_MODIFY_CONFIG 2)
+	(:VIR_DOMAIN_DEVICE_MODIFY_FORCE 4))	;; Forcibly modify device (ex. force eject a cdrom).
+
+(defcenum virDomainStatsTypes
+	(:VIR_DOMAIN_STATS_STATE 1)		;; return domain state.
+	(:VIR_DOMAIN_STATS_CPU_TOTAL 2)		;;  return domain CPU info.
+	(:VIR_DOMAIN_STATS_BALLOON 4)		;; return domain balloon info.
+	(:VIR_DOMAIN_STATS_VCPU 8)		;; return domain virtual CPU info.
+	(:VIR_DOMAIN_STATS_INTERFACE 16)	;; return domain interfaces info.
+	(:VIR_DOMAIN_STATS_BLOCK 32))		;; return domain block info.
+
+(defcenum virConnectGetAllDomainStatsFlags
+	(:VIR_CONNECT_GET_ALL_DOMAINS_STATS_ACTIVE 1)
+	(:VIR_CONNECT_GET_ALL_DOMAINS_STATS_INACTIVE 2)
+	(:VIR_CONNECT_GET_ALL_DOMAINS_STATS_PERSISTENT 4)
+	(:VIR_CONNECT_GET_ALL_DOMAINS_STATS_TRANSIENT 8)
+	(:VIR_CONNECT_GET_ALL_DOMAINS_STATS_RUNNING 16)
+	(:VIR_CONNECT_GET_ALL_DOMAINS_STATS_PAUSED 32)
+	(:VIR_CONNECT_GET_ALL_DOMAINS_STATS_SHUTOFF 64)
+	(:VIR_CONNECT_GET_ALL_DOMAINS_STATS_OTHER 128)
+	(:VIR_CONNECT_GET_ALL_DOMAINS_STATS_BACKING 1073741824)		;; include backing chain for block stats.
+	(:VIR_CONNECT_GET_ALL_DOMAINS_STATS_ENFORCE_STATS 2147483648)) 	;; enforce requested stats.
+
+(defcenum virDomainBlockJobType
+	(:VIR_DOMAIN_BLOCK_JOB_TYPE_UNKNOWN 0)		;; Placeholder.
+	(:VIR_DOMAIN_BLOCK_JOB_TYPE_PULL 1)		;; Block Pull (virDomainBlockPull, or virDomainBlockRebase without flags), job ends on completion.
+	(:VIR_DOMAIN_BLOCK_JOB_TYPE_COPY 2)		;; Block Copy (virDomainBlockCopy, or virDomainBlockRebase with flags), job exists as long as mirroring is active.
+	(:VIR_DOMAIN_BLOCK_JOB_TYPE_COMMIT 3)		;; Block Commit (virDomainBlockCommit without flags), job ends on completion.
+	(:VIR_DOMAIN_BLOCK_JOB_TYPE_ACTIVE_COMMIT 4)	;; Active Block Commit (virDomainBlockCommit with flags), job exists as long as sync is active.
+	(:VIR_DOMAIN_BLOCK_JOB_TYPE_LAST 5))
+
+(defcenum virDomainBlockJobAbortFlags
+	(:VIR_DOMAIN_BLOCK_JOB_ABORT_ASYNC 1)
+	(:VIR_DOMAIN_BLOCK_JOB_ABORT_PIVOT 2))
+
+(defcenum virDomainBlockJobInfoFlags
+	(:VIR_DOMAIN_BLOCK_JOB_INFO_BANDWIDTH_BYTES 1))	;; bandwidth in bytes/s instead of MiB/s.
+
+(defcenum virDomainBlockJobSetSpeedFlags
+	(:VIR_DOMAIN_BLOCK_JOB_SPEED_BANDWIDTH_BYTES 1)	;; bandwidth in bytes/s instead of MiB/s.
+
+(defcenum virDomainBlockPullFlags
+	(:VIR_DOMAIN_BLOCK_PULL_BANDWIDTH_BYTES 64)	;; bandwidth in bytes/s instead of MiB/s.
+
 
 ;; Pointers mapping to structures.
 (defctype virDomainPtr (:pointer virDomain))
