@@ -46,10 +46,67 @@
 	   :virDomainCrashedReason
 	   :virDomainPMSuspendedReason
 	   :virDomainPMSuspendedDiskReason
-	   :virDomainXMLFlags
+	   :virDomainControlState
+	   :virDomainControlErrorReason
+	   :virDomainModificationImpact
+	   :virDomainMemoryStatTags
+	   :virDomainCoreDumpFlags
+	   :virDomainCoreDumpFormat
+	   :virDomainMigrateFlags
 	   :virDomainCreateFlags
 	   :virDomainShutdownFlagValues
 	   :virDomainRebootFlagValues
+	   :virDomainDestroyFlagsValues
+	   :virDomainSaveRestoreFlags
+	   :virDomainMemoryModFlags
+	   :virDomainNumatuneMemMode
+	   :virDomainMetadataType
+	   :virDomainXMLFlags
+	   :virDomainBlockResizeFlags
+	   :virDomainMemoryFlags
+	   :virDomainDefineFlags
+	   :virDomainUndefineFlagsValues
+	   :virConnectListAllDomainsFlags
+	   :virVcpuState
+	   :virDomainVcpuFlags
+	   :virDomainDeviceModifyFlags
+	   :virDomainStatsTypes
+	   :virConnectGetAllDomainStatsFlags
+	   :virDomainBlockJobType
+	   :virDomainBlockJobAbortFlags
+	   :virDomainBlockJobInfoFlags
+	   :virDomainBlockJobSetSpeedFlags
+	   :virDomainBlockPullFlags
+	   :virDomainBlockRebaseFlags
+	   :virDomainBlockCopyFlags
+	   :virDomainBlockCommitFlags
+	   :virDomainDiskErrorCode
+	   :virKeycodeSet
+	   :virDomainProcessSignal
+	   :virDomainEventType
+	   :virDomainEventDefinedDetailType
+	   :virDomainEventUndefinedDetailType
+	   :virDomainEventStartedDetailType
+	   :virDomainEventSuspendedDetailType
+	   :virDomainEventResumedDetailType
+	   :virDomainEventStoppedDetailType
+	   :virDomainEventShutdownDetailType
+	   :virDomainEventPMSuspendedDetailType
+	   :virDomainEventCrashedDetailType
+	   :virDomainJobType
+	   :virDomainGetJobStatsFlags
+	   :virDomainEventWatchdogAction
+	   :virDomainEventIOErrorAction
+	   :virDomainEventGraphicsPhase
+	   :virDomainEventGraphicsAddressType
+	   :virDomainEventTrayChangeReason
+	   :virConnectDomainEventAgentLifecycleState
+	   :virConnectDomainEventAgentLifecycleReason
+	   :virDomainEventID
+	   :virDomainConsoleFlags
+	   :virDomainChannelFlags
+	   :virDomainOpenGraphicsFlags
+	   :virDomainSetTimeFlags
 	   :virDomainGetName
 	   :virDomainGetID
 	   :virDomainGetUUID
