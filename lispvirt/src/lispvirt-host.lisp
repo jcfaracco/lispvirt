@@ -83,7 +83,18 @@
 	   :virConnectGetCPUModelNames
 	   :virConnectBaselineCPU
 	   :virNodeGetFreePages
-	   :virNodeAllocPages))
+	   :virNodeAllocPages
+	   :virNodeSuspendTarget
+	   :virTypedParameterType
+	   :virTypedParameterFlags
+	   :virNodeGetCPUStatsAllCPUs
+	   :virNodeGetMemoryStatsAllCells
+	   :virConnectFlags
+	   :virConnectCredentialType
+	   :virConnectCloseReason
+	   :virCPUCompareResult
+	   :virConnectBaselineCPUFlags
+	   :virNodeAllocPagesFlags))
 
 (in-package :lispvirt-host)
 
