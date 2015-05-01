@@ -107,6 +107,69 @@
 
 (defcstruct virNodeMemoryStats)
 
+(defcenum virNodeSuspendTarget
+	(:VIR_NODE_SUSPEND_TARGET_MEM 0)
+	(:VIR_NODE_SUSPEND_TARGET_DISK 1)
+	(:VIR_NODE_SUSPEND_TARGET_HYBRID 2)
+	(:VIR_NODE_SUSPEND_TARGET_LAST 3))
+
+(defcenum virTypedParameterType
+	(:VIR_TYPED_PARAM_INT 1)	;; integer case.
+	(:VIR_TYPED_PARAM_UINT 2)	;; unsigned integer case.
+	(:VIR_TYPED_PARAM_LLONG 3)	;; long long case.
+	(:VIR_TYPED_PARAM_ULLONG 4)	;; unsigned long long case.
+	(:VIR_TYPED_PARAM_DOUBLE 5)	;; double case.
+	(:VIR_TYPED_PARAM_BOOLEAN 6)	;; boolean(character) case.
+	(:VIR_TYPED_PARAM_STRING 7)	;; string case.
+	(:VIR_TYPED_PARAM_LAST 8))
+
+(defcenum virTypedParameterFlags
+	(:VIR_TYPED_PARAM_STRING_OKAY 4))
+
+(defcenum virNodeGetCPUStatsAllCPUs
+	(:VIR_NODE_CPU_STATS_ALL_CPUS -1))
+
+(defcenum virNodeGetMemoryStatsAllCells
+	(:VIR_NODE_MEMORY_STATS_ALL_CELLS -1))
+
+(defcenum virConnectFlags
+	(:VIR_CONNECT_RO 1)		;; A readonly connection.
+	(:VIR_CONNECT_NO_ALIASES 2))	;; Don't try to resolve URI aliases.
+
+(defcenum virConnectCredentialType
+	(:VIR_CRED_USERNAME 1)		;; Identity to act as.
+	(:VIR_CRED_AUTHNAME 2)		;; Identify to authorize as.
+	(:VIR_CRED_LANGUAGE 3)		;; RFC 1766 languages, comma separated.
+	(:VIR_CRED_CNONCE 4)		;; client supplies a nonce.
+	(:VIR_CRED_PASSPHRASE 5)	;; Passphrase secret.
+	(:VIR_CRED_ECHOPROMPT 6)	;; Challenge response.
+	(:VIR_CRED_NOECHOPROMPT 7)	;; Challenge response.
+	(:VIR_CRED_REALM 8)		;; Authentication realm.
+	(:VIR_CRED_EXTERNAL 9)		;; Externally managed credential.
+	(:VIR_CRED_LAST 10))
+
+(defcenum virConnectCloseReason
+	(:VIR_CONNECT_CLOSE_REASON_ERROR 0)	;; Misc I/O error.
+	(:VIR_CONNECT_CLOSE_REASON_EOF 1)	;; End-of-file from server.
+	(:VIR_CONNECT_CLOSE_REASON_KEEPALIVE 2)	;; Keepalive timer triggered.
+	(:VIR_CONNECT_CLOSE_REASON_CLIENT 3)	;; Client requested it.
+	(:VIR_CONNECT_CLOSE_REASON_LAST 4))
+
+(defcenum virCPUCompareResult
+	(:VIR_CPU_COMPARE_ERROR -1)
+	(:VIR_CPU_COMPARE_INCOMPATIBLE 0)
+	(:VIR_CPU_COMPARE_IDENTICAL 1)
+	(:VIR_CPU_COMPARE_SUPERSET 2)
+	(:VIR_CPU_COMPARE_LAST 3))
+
+(defcenum virConnectBaselineCPUFlags
+	(:VIR_CONNECT_BASELINE_CPU_EXPAND_FEATURES 1)	;; show all features.
+	(:VIR_CONNECT_BASELINE_CPU_MIGRATABLE 2))	;; filter out non-migratable features.
+
+(defcenum virNodeAllocPagesFlags
+	(:VIR_NODE_ALLOC_PAGES_ADD 0)	;; Add @pageCounts to the pages pool. This can be used only to size up the pool.
+	(:VIR_NODE_ALLOC_PAGES_SET 1))	;; Don't add @pageCounts, instead set passed number of pages. This can be used to free allocated pages.
+
 
 ;; Pointers mapping to structures.
 (defctype virConnectPtr (:pointer virConnect))
