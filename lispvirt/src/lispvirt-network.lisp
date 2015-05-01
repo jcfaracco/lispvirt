@@ -51,7 +51,14 @@
 	   :virNetworkIsPersistent
 	   :virNetworkDHCPLeaseFree
 	   :virNetworkGetDHCPLeases
-	   :virConnectNetworkEventDeregisterAny))
+	   :virConnectNetworkEventDeregisterAny
+	   :virConnectListAllNetworksFlags
+	   :virNetworkUpdateCommand
+	   :virNetworkUpdateSection
+	   :virNetworkUpdateFlags
+	   :virNetworkEventLifecycleType
+	   :virNetworkEventID
+	   :virIPAddrType))
 
 (in-package :lispvirt-network)
 
