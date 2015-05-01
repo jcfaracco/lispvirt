@@ -77,7 +77,17 @@
 	   :virStorageVolGetPath
 	   :virStorageVolResize
 	   :virStoragePoolIsActive
-	   :virStoragePoolIsPersistent))
+	   :virStoragePoolIsPersistent
+	   :virStoragePoolState
+	   :virStoragePoolBuildFlags
+	   :virStoragePoolDeleteFlags
+	   :virStorageVolType
+	   :virStorageVolDeleteFlags
+	   :virStorageVolWipeAlgorithm
+	   :virStorageXMLFlags
+	   :virConnectListAllStoragePoolsFlags
+	   :virStorageVolCreateFlags
+	   :virStorageVolResizeFlags))
 
 (in-package :lispvirt-storage)
 
