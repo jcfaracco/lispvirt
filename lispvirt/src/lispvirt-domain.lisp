@@ -728,6 +728,57 @@
 	(:VIR_DOMAIN_EVENT_GRAPHICS_ADDRESS_UNIX 2)	;; UNIX socket path.
 	(:VIR_DOMAIN_EVENT_GRAPHICS_ADDRESS_LAST 3))
 
+(defcenum virDomainEventTrayChangeReason
+	(:VIR_DOMAIN_EVENT_TRAY_CHANGE_OPEN 0)
+	(:VIR_DOMAIN_EVENT_TRAY_CHANGE_CLOSE 1)
+	(:VIR_DOMAIN_EVENT_TRAY_CHANGE_LAST 2))
+
+(defcenum virConnectDomainEventAgentLifecycleState
+	(:VIR_CONNECT_DOMAIN_EVENT_AGENT_LIFECYCLE_STATE_CONNECTED 1)		;; agent connected.
+	(:VIR_CONNECT_DOMAIN_EVENT_AGENT_LIFECYCLE_STATE_DISCONNECTED 2)	;; agent disconnected.
+	(:VIR_CONNECT_DOMAIN_EVENT_AGENT_LIFECYCLE_STATE_LAST 3))
+
+(defcenum virConnectDomainEventAgentLifecycleReason
+	(:VIR_CONNECT_DOMAIN_EVENT_AGENT_LIFECYCLE_REASON_UNKNOWN 0)		;; unknown state change reason.
+	(:VIR_CONNECT_DOMAIN_EVENT_AGENT_LIFECYCLE_REASON_DOMAIN_STARTED 1)	;; state changed due to domain start.
+	(:VIR_CONNECT_DOMAIN_EVENT_AGENT_LIFECYCLE_REASON_CHANNEL 2)		;; channel state changed.
+	(:VIR_CONNECT_DOMAIN_EVENT_AGENT_LIFECYCLE_REASON_LAST 3))
+
+(defcenum virDomainEventID
+	(:VIR_DOMAIN_EVENT_ID_LIFECYCLE 0)		;; virConnectDomainEventCallback.
+	(:VIR_DOMAIN_EVENT_ID_REBOOT 1)			;; virConnectDomainEventGenericCallback.
+	(:VIR_DOMAIN_EVENT_ID_RTC_CHANGE 2)		;; virConnectDomainEventRTCChangeCallback.
+	(:VIR_DOMAIN_EVENT_ID_WATCHDOG 3)		;; virConnectDomainEventWatchdogCallback.
+	(:VIR_DOMAIN_EVENT_ID_IO_ERROR 4)		;; virConnectDomainEventIOErrorCallback.
+	(:VIR_DOMAIN_EVENT_ID_GRAPHICS 5)		;; virConnectDomainEventGraphicsCallback.
+	(:VIR_DOMAIN_EVENT_ID_IO_ERROR_REASON 6)	;; virConnectDomainEventIOErrorReasonCallback.
+	(:VIR_DOMAIN_EVENT_ID_CONTROL_ERROR 7)		;; virConnectDomainEventGenericCallback.
+	(:VIR_DOMAIN_EVENT_ID_BLOCK_JOB 8)		;; virConnectDomainEventBlockJobCallback.
+	(:VIR_DOMAIN_EVENT_ID_DISK_CHANGE 9)		;; virConnectDomainEventDiskChangeCallback.
+	(:VIR_DOMAIN_EVENT_ID_TRAY_CHANGE 10)		;; virConnectDomainEventTrayChangeCallback.
+	(:VIR_DOMAIN_EVENT_ID_PMWAKEUP 11)		;; virConnectDomainEventPMWakeupCallback.
+	(:VIR_DOMAIN_EVENT_ID_PMSUSPEND 12)		;; virConnectDomainEventPMSuspendCallback.
+	(:VIR_DOMAIN_EVENT_ID_BALLOON_CHANGE 13)	;; virConnectDomainEventBalloonChangeCallback.
+	(:VIR_DOMAIN_EVENT_ID_PMSUSPEND_DISK 14)	;; virConnectDomainEventPMSuspendDiskCallback.
+	(:VIR_DOMAIN_EVENT_ID_DEVICE_REMOVED 15)	;; virConnectDomainEventDeviceRemovedCallback.
+	(:VIR_DOMAIN_EVENT_ID_BLOCK_JOB_2 16)		;; virConnectDomainEventBlockJobCallback.
+	(:VIR_DOMAIN_EVENT_ID_TUNABLE 17)		;; virConnectDomainEventTunableCallback.
+	(:VIR_DOMAIN_EVENT_ID_AGENT_LIFECYCLE 18)	;; virConnectDomainEventAgentLifecycleCallback.
+	(:VIR_DOMAIN_EVENT_ID_LAST 19))
+
+(defcenum virDomainConsoleFlags
+	(:VIR_DOMAIN_CONSOLE_FORCE 1)	;; abort a (possibly) active console connection to force a new connection.
+	(:VIR_DOMAIN_CONSOLE_SAFE 2)) 	;; check if the console driver supports safe console operations.
+
+(defcenum virDomainChannelFlags
+	(:VIR_DOMAIN_CHANNEL_FORCE 1))	;; abort a (possibly) active channel connection to force a new connection.
+
+(defcenum virDomainOpenGraphicsFlags
+	(:VIR_DOMAIN_OPEN_GRAPHICS_SKIPAUTH 1))
+
+(defcenum virDomainSetTimeFlags
+	(:VIR_DOMAIN_TIME_SYNC 1)) ;; Re-sync domain time from domain's RTC.
+
 
 ;; Pointers mapping to structures.
 (defctype virDomainPtr (:pointer virDomain))
