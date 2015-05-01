@@ -60,6 +60,62 @@
 
 (defcstruct virNetworkDHCPLease)
 
+(defcenum virNetworkXMLFlags
+	(:VIR_NETWORK_XML_INACTIVE 1))	;; dump inactive network information.
+
+(defcenum virConnectListAllNetworksFlags
+	(:VIR_CONNECT_LIST_NETWORKS_INACTIVE 1)
+	(:VIR_CONNECT_LIST_NETWORKS_ACTIVE 2)
+	(:VIR_CONNECT_LIST_NETWORKS_PERSISTENT 4)
+	(:VIR_CONNECT_LIST_NETWORKS_TRANSIENT 8)
+	(:VIR_CONNECT_LIST_NETWORKS_AUTOSTART 16)
+	(:VIR_CONNECT_LIST_NETWORKS_NO_AUTOSTART 32))
+
+(defcenum virNetworkUpdateCommand
+	(:VIR_NETWORK_UPDATE_COMMAND_NONE 0)		;; (invalid).
+	(:VIR_NETWORK_UPDATE_COMMAND_MODIFY 1)		;; modify an existing element.
+	(:VIR_NETWORK_UPDATE_COMMAND_DELETE 2)		;; delete an existing element.
+	(:VIR_NETWORK_UPDATE_COMMAND_ADD_LAST 3)	;; add an element at end of list.
+	(:VIR_NETWORK_UPDATE_COMMAND_ADD_FIRST 4)	;; add an element at start of list.
+	(:VIR_NETWORK_UPDATE_COMMAND_LAST 5))
+
+(defcenum virNetworkUpdateSection
+	(:VIR_NETWORK_SECTION_NONE 0)			;; (invalid).
+	(:VIR_NETWORK_SECTION_BRIDGE 1)			;; <bridge>.
+	(:VIR_NETWORK_SECTION_DOMAIN 2)			;; <domain>.
+	(:VIR_NETWORK_SECTION_IP 3)			;; <ip>.
+	(:VIR_NETWORK_SECTION_IP_DHCP_HOST 4)		;; <ip>/<dhcp>/<host>.
+	(:VIR_NETWORK_SECTION_IP_DHCP_RANGE 5)		;; <ip>/<dhcp>/<range>.
+	(:VIR_NETWORK_SECTION_FORWARD 6)		;; <forward>.
+	(:VIR_NETWORK_SECTION_FORWARD_INTERFACE 7)	;; <forward>/<interface>.
+	(:VIR_NETWORK_SECTION_FORWARD_PF 8)		;; <forward>/<pf>.
+	(:VIR_NETWORK_SECTION_PORTGROUP 9)		;; <portgroup>.
+	(:VIR_NETWORK_SECTION_DNS_HOST 10)		;; <dns>/<host>.
+	(:VIR_NETWORK_SECTION_DNS_TXT 11)		;; <dns>/<txt>.
+	(:VIR_NETWORK_SECTION_DNS_SRV 12)		;; <dns>/<srv>.
+	(:VIR_NETWORK_SECTION_LAST 13))
+
+(defcenum virNetworkUpdateFlags
+	(:VIR_NETWORK_UPDATE_AFFECT_CURRENT 0)	;; affect live if network is active, config if it's not active.
+	(:VIR_NETWORK_UPDATE_AFFECT_LIVE 1)	;; affect live state of network only.
+	(:VIR_NETWORK_UPDATE_AFFECT_CONFIG 2))	;; affect persistent config only.
+
+(defcenum virNetworkEventLifecycleType
+	(:VIR_NETWORK_EVENT_DEFINED 0)
+	(:VIR_NETWORK_EVENT_UNDEFINED 1)
+	(:VIR_NETWORK_EVENT_STARTED 2)
+	(:VIR_NETWORK_EVENT_STOPPED 3)
+	(:VIR_NETWORK_EVENT_LAST 4))
+
+(defcenum virNetworkEventID
+	(:VIR_NETWORK_EVENT_ID_LIFECYCLE 0)	;; virConnectNetworkEventLifecycleCallback.
+	(:VIR_NETWORK_EVENT_ID_LAST 1))
+
+(defcenum virIPAddrType
+	(:VIR_IP_ADDR_TYPE_IPV4 1)
+	(:VIR_IP_ADDR_TYPE_IPV6 2)
+	(:VIR_IP_ADDR_TYPE_LAST 3))
+
 
 ;; Pointers mapping to structures.
 (defctype virNetworkPtr (:pointer virNetwork))
