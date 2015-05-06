@@ -44,13 +44,22 @@
 	   :virInterfaceChangeBegin
 	   :virInterfaceChangeCommit
 	   :virInterfaceChangeRollback
-	   :virInterfaceIsActive))
+	   :virInterfaceIsActive
+	   :virConnectListAllInterfacesFlags
+	   :virInterfaceXMLFlags))
 
 (in-package :lispvirt-interface)
 
 
 ;; Definitions of strucutres for Storage.
 (defcstruct virInterface)
+
+(defcenum virConnectListAllInterfacesFlags
+	(:VIR_CONNECT_LIST_INTERFACES_INACTIVE 1)
+	(:VIR_CONNECT_LIST_INTERFACES_ACTIVE 2))
+
+(defcenum virInterfaceXMLFlags
+	(:VIR_INTERFACE_XML_INACTIVE 1))	;; dump inactive interface information.
 
 
 ;; Pointers mapping to structures.
