@@ -26,7 +26,10 @@
   (:export :virDomainQemuMonitorCommand
 	   :virDomainQemuAttach
 	   :virDomainQemuAgentCommand
-	   :virConnectDomainQemuMonitorEventDeregister))
+	   :virConnectDomainQemuMonitorEventDeregister
+	   :virDomainQemuMonitorCommandFlags
+	   :virDomainQemuAgentCommandTimeoutValues
+	   :virConnectDomainQemuMonitorEventRegisterFlags))
 
 (in-package :lispvirt-qemu)
 
