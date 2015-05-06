@@ -31,6 +31,21 @@
 (in-package :lispvirt-qemu)
 
 
+(defcenum virDomainQemuMonitorCommandFlags
+	(:VIR_DOMAIN_QEMU_MONITOR_COMMAND_DEFAULT 0)
+	(:VIR_DOMAIN_QEMU_MONITOR_COMMAND_HMP 1))	;; cmd is in HMP.
+
+(defcenum virDomainQemuAgentCommandTimeoutValues
+	(:VIR_DOMAIN_QEMU_AGENT_COMMAND_MIN -2)
+	(:VIR_DOMAIN_QEMU_AGENT_COMMAND_BLOCK -2)
+	(:VIR_DOMAIN_QEMU_AGENT_COMMAND_DEFAULT -1)
+	(:VIR_DOMAIN_QEMU_AGENT_COMMAND_NOWAIT 0))
+
+(defcenum virConnectDomainQemuMonitorEventRegisterFlags
+	(:VIR_CONNECT_DOMAIN_QEMU_MONITOR_EVENT_REGISTER_REGEX 1)	;; Event filter is a regex rather than a literal string.
+	(:VIR_CONNECT_DOMAIN_QEMU_MONITOR_EVENT_REGISTER_NOCASE 2))	;; Event filter is case insensitive.
+
+
 ;; Methods.
 (defcfun ("virDomainQemuMonitorCommand" %virDomainQemuMonitorCommand) :int
 	(domain virDomainPtr)
