@@ -93,6 +93,7 @@
 	   :virConnectCredentialType
 	   :virConnectCloseReason
 	   :virCPUCompareResult
+	   :virConnectCompareCPUFlags
 	   :virConnectBaselineCPUFlags
 	   :virNodeAllocPagesFlags))
 
@@ -172,6 +173,9 @@
 	(:VIR_CPU_COMPARE_IDENTICAL 1)
 	(:VIR_CPU_COMPARE_SUPERSET 2)
 	(:VIR_CPU_COMPARE_LAST 3))
+
+(defcenum virConnectCompareCPUFlags
+	(:VIR_CONNECT_COMPARE_CPU_FAIL_INCOMPATIBLE 1))	;; treat incompatible CPUs as failure.
 
 (defcenum virConnectBaselineCPUFlags
 	(:VIR_CONNECT_BASELINE_CPU_EXPAND_FEATURES 1)	;; show all features.
