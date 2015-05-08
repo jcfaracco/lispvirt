@@ -31,9 +31,21 @@
 	   :virStreamEventRemoveCallback
 	   :virStreamFinish
 	   :virStreamAbort
-	   :virStreamFree))
+	   :virStreamFree
+	   :virStreamFlags
+	   :virStreamEventType))
 
 (in-package :lispvirt-stream)
+
+
+(defcenum virStreamFlags
+	(:VIR_STREAM_NONBLOCK 1))
+
+(defcenum virStreamEventType
+	(:VIR_STREAM_EVENT_READABLE 1)
+	(:VIR_STREAM_EVENT_WRITABLE 2)
+	(:VIR_STREAM_EVENT_ERROR 4)
+	(:VIR_STREAM_EVENT_HANGUP 8))
 
 
 ;; Methods.
