@@ -61,3 +61,11 @@ Contact
 If you want to contribute with Lispvirt, please contact me: jcfaracco@gmail.com.
 
 Any contribution would be very helpful to our project.
+
+
+Authors
+-----------------------------
+
+lispvirt was written and is maintained by Julio C. Faracco and José Roberto B. de A. Monteiro.
+
+Copyright (C) 2015 Julio C. Faracco
