@@ -205,6 +205,10 @@
 
 (defctype virNodeMemoryStatsPtr (:pointer virNodeMemoryStats))
 
+(defctype virFreeCallback :pointer)
+
+(defctype virConnectCloseFunc :pointer)
+
 
 ;; Methods.
 (defcfun "virTypedParamsGet" virTypedParameterPtr
@@ -457,15 +461,15 @@
 	(interval :int)
 	(count :uint))
 
-;;(defcfun "virConnectRegisterCloseCallback" :int
-;;	(conn virConnectPtr)
-;;	(cb virConnectCloseFunc)
-;;	(opaque (:pointer :void))
-;;	(freecb virFreeCallback))
+(defcfun "virConnectRegisterCloseCallback" :int
+	(conn virConnectPtr)
+	(cb virConnectCloseFunc)
+	(opaque (:pointer :void))
+	(freecb virFreeCallback))
 
-;;(defcfun "virConnectUnregisterCloseCallback" :int
-;;	(conn virConnectPtr)
-;;	(cb virConnectCloseFunc))
+(defcfun "virConnectUnregisterCloseCallback" :int
+	(conn virConnectPtr)
+	(cb virConnectCloseFunc))
 
 
 ;; Capabilities of the connection/driver.
