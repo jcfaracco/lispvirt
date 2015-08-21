@@ -33,7 +33,8 @@
 	   :virStreamAbort
 	   :virStreamFree
 	   :virStreamFlags
-	   :virStreamEventType))
+	   :virStreamEventType
+	   :virStreamEventCallback))
 
 (in-package :lispvirt-stream)
 
@@ -47,6 +48,13 @@
 	(:VIR_STREAM_EVENT_ERROR 4)
 	(:VIR_STREAM_EVENT_HANGUP 8))
 
+
+;; Pointers mapping to structures.
+(defctype virStreamSourceFunc :pointer)
+
+(defctype virStreamSinkFunc :pointer)
+
+(defctype virStreamEventCallback :pointer)
 
 ;; Methods.
 (defcfun "virStreamNew" virStreamPtr
@@ -66,22 +74,22 @@
 	(data :string)
 	(nbytes size_t))
 
-;;(defcfun "virStreamSendAll" :int
-;;	(stream virStreamPtr)
-;;	(handler virStreamSourceFunc)
-;;	(opaque (:pointer :void)))
+(defcfun "virStreamSendAll" :int
+	(stream virStreamPtr)
+	(handler virStreamSourceFunc)
+	(opaque (:pointer :void)))
 
-;;(defcfun "virStreamRecvAll" :int
-;;	(stream virStreamPtr)
-;;	(handler virStreamSinkFunc)
-;;	(opaque (:pointer :void)))
+(defcfun "virStreamRecvAll" :int
+	(stream virStreamPtr)
+	(handler virStreamSinkFunc)
+	(opaque (:pointer :void)))
 
-;;(defcfun "virStreamEventAddCallback" :int
-;;	(stream virStreamPtr)
-;;	(events :int)
-;;	(cb virStreamEventCallback)
-;;	(opaque (:pointer :void))
-;;	(ff virFreeCallback))
+(defcfun "virStreamEventAddCallback" :int
+	(stream virStreamPtr)
+	(events :int)
+	(cb virStreamEventCallback)
+	(opaque (:pointer :void))
+	(ff virFreeCallback))
 
 (defcfun "virStreamEventUpdateCallback" :int
 	(stream virStreamPtr)
