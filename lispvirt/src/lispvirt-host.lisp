@@ -32,6 +32,8 @@
 	   :virNodeInfoPtr
 	   :virNodeCPUStatsPtr
 	   :virNodeMemoryStatsPtr
+	   :virFreeCallback
+	   :virConnectCloseFunc
 	   :virTypedParamsGet
 	   :virTypedParamsGetInt
 	   :virTypedParamsGetUInt
