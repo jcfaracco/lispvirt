@@ -29,7 +29,8 @@
 	   :virConnectDomainQemuMonitorEventDeregister
 	   :virDomainQemuMonitorCommandFlags
 	   :virDomainQemuAgentCommandTimeoutValues
-	   :virConnectDomainQemuMonitorEventRegisterFlags))
+	   :virConnectDomainQemuMonitorEventRegisterFlags
+	   :virConnectDomainQemuMonitorEventCallback))
 
 (in-package :lispvirt-qemu)
 
@@ -47,6 +48,10 @@
 (defcenum virConnectDomainQemuMonitorEventRegisterFlags
 	(:VIR_CONNECT_DOMAIN_QEMU_MONITOR_EVENT_REGISTER_REGEX 1)	;; Event filter is a regex rather than a literal string.
 	(:VIR_CONNECT_DOMAIN_QEMU_MONITOR_EVENT_REGISTER_NOCASE 2))	;; Event filter is case insensitive.
+
+
+;; Pointers mapping to structures.
+(defctype virConnectDomainQemuMonitorEventCallback :pointer)
 
 
 ;; Methods.
@@ -68,14 +73,14 @@
 	(timeout :int)
 	(flags :uint))
 
-;;(defcfun "virConnectDomainQemuMonitorEventRegister" :int
-;;	(conn virConnectPtr)
-;;	(domain virDomainPtr)
-;;	(event :string)
-;;	(cb virConnectDomainQemuMonitorEventCallback)
-;;	(opaque (:pointer :void))
-;;	(freecb virFreeCallback)
-;;	(flags :uint))
+(defcfun "virConnectDomainQemuMonitorEventRegister" :int
+	(conn virConnectPtr)
+	(domain virDomainPtr)
+	(event :string)
+	(cb virConnectDomainQemuMonitorEventCallback)
+	(opaque (:pointer :void))
+	(freecb virFreeCallback)
+	(flags :uint))
 
 (defcfun "virConnectDomainQemuMonitorEventDeregister" :int
 	(conn virConnectPtr)
