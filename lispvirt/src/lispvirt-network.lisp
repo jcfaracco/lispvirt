@@ -25,6 +25,7 @@
   (:use :cl :cffi :lispvirt-host)
   (:export :virNetworkPtr
 	   :virNetworkDHCPLeasePtr
+	   :virConnectNetworkEventGenericCallback
 	   :virNetworkGetConnect
 	   :virConnectNumOfNetworks
 	   :virConnectListNetworks
@@ -128,6 +129,8 @@
 (defctype virNetworkPtr (:pointer virNetwork))
 
 (defctype virNetworkDHCPLeasePtr (:pointer virNetworkDHCPLease))
+
+(defctype virConnectNetworkEventGenericCallback :pointer)
 
 
 ;; Methods
@@ -277,13 +280,13 @@
 	(leases (:pointer (:pointer virNetworkDHCPLeasePtr)))
 	(flags :uint))
 
-;;(defcfun "virConnectNetworkEventRegisterAny" :int
-;;	(conn virConnectPtr)
-;;	(network virNetworkPtr)
-;;	(eventID :int)
-;;	(cb virConnectNetworkEventGenericCallback)
-;;	(opaque (:pointer :void))
-;;	(freecb virFreeCallback))
+(defcfun "virConnectNetworkEventRegisterAny" :int
+	(conn virConnectPtr)
+	(network virNetworkPtr)
+	(eventID :int)
+	(cb virConnectNetworkEventGenericCallback)
+	(opaque (:pointer :void))
+	(freecb virFreeCallback))
 
 (defcfun "virConnectNetworkEventDeregisterAny" :int
 	(conn virConnectPtr)
