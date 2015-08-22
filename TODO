@@ -1,10 +1,8 @@
 [Urgent]
 - Do more test cases.
-- Add some missing structures.
-- Add many missing enums.
 - Implement alien functions.
 - Discover how to get array from pointers.
-- Check callback funtions.
+- Testing callback funtions and pointer.
 - Do we need to define nicknames for the packages? It would be a nice approach...
 
 [Important]
