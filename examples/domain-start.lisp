@@ -43,8 +43,42 @@
           (virDomainGetOSType domain)
           (virDomainGetMaxMemory domain))))
 
+;; This method only lists the name of all defined domains.
+(defun list-all-defined-domains (hypervisor)
+  (let ((conn (virConnectOpen hypervisor)))
+    (setq max (virConnectNumOfDefinedDomains conn))
+    (setq domains (virConnectListAllDomains conn max))
+    (loop for domain in domains
+       collect (virDomainGetName domain))))
+
+;; This method start all defined domains and after 60 seconds
+;; it powers off all running machines.
+(defun start-and-shutdown-defined-domains (hypervisor)
+  (let ((conn (virConnectOpen hypervisor))
+        (domains (list-all-defined-domains hypervisor))
+        (flags_start (foreign-enum-value 'virDomainCreateFlags
+                                         :VIR_DOMAIN_NONE)))
+    (loop for domain in domains do
+         (progn
+           (format t "Starting...~%")
+           (virDomainCreateWithFlags
+            (virDomainLookupByName conn domain)
+            flags_start)))
+    (sleep 60)
+    (loop for domain in domains do
+         (progn
+           (format t "Shuting down...~%")
+           (virDomainShutdown
+            (virDomainLookupByName conn domain))
+           (virDomainFree
+            (virDomainLookupByName conn domain))))))
+
 
 ;; Running methods.
 (list-all-active-domains "qemu:///system")
 
 (list-first-active-domain "qemu:///system")
+
+(list-all-defined-domains "qemu:///system")
+
+(start-and-shutdown-defined-domains "qemu:///system")
