@@ -36,6 +36,8 @@
 	   :virDomainDiskErrorPtr
 	   :virDomainJobInfoPtr
 	   :virDomainFSInfoPtr
+	   :virConnectDomainEventCallback
+	   :virConnectDomainEventGenericCallback
 	   :virDomainState
 	   :virDomainNostateReason
 	   :virDomainRunningReason
@@ -866,6 +868,10 @@
 
 (defctype virDomainFSInfoPtr (:pointer virDomainFSInfo))
 
+(defctype virConnectDomainEventCallback :pointer)
+
+(defctype virConnectDomainEventGenericCallback :pointer)
+
 
 ;; Methods.
 ;; Dinamic control of domains
@@ -1179,7 +1185,6 @@
 
 
 ;; Domain creation and destruction
-
 (defcfun "virDomainCreateXML" virDomainPtr
 	(conn virConnectPtr)
 	(xmlDesc :string)
@@ -1288,7 +1293,6 @@
 
 
 ;; Managed domain save
-
 (defcfun "virDomainManagedSave" :int
 	(domain virDomainPtr)
 	(flags :uint))
@@ -1303,7 +1307,6 @@
 
 
 ;; Domain core dump
-
 (defcfun "virDomainCoreDump" :int
 	(domain virDomainPtr)
 	(to :string)
@@ -1358,7 +1361,6 @@
 
 
 ;; Return scheduler type in effect 'sedf', 'credit', 'linux'
-
 (defcfun ("virDomainGetSchedulerType" %virDomainGetSchedulerType) :string
 	(domain virDomainPtr)
 	(nparams (:pointer :int)))
@@ -1370,7 +1372,6 @@
 
 
 ;; Set Blkio tunables for the domain
-
 (defcfun "virDomainSetBlkioParameters" :int
 	(domain virDomainPtr)
 	(params virTypedParameterPtr)
@@ -1501,8 +1502,8 @@
 	(domain virDomainPtr)
 	(autostart :int))
 
-;; virVcpuInfo: structure for information about a virtual CPU in a domain.
 
+;; virVcpuInfo: structure for information about a virtual CPU in a domain.
 (defcfun "virDomainSetVcpus" :int
 	(domain virDomainPtr)
 	(nvcpus :uint))
@@ -1680,15 +1681,15 @@
 	(signum :uint)
 	(flags :uint))
 
-;;(defcfun "virConnectDomainEventRegister" :int
-;;	(conn virConnectPtr)
-;;	(cb virConnectDomainEventCallback)
-;;	(opaque (:pointer :void))
-;;	(freecb virFreeCallback))
+(defcfun "virConnectDomainEventRegister" :int
+	(conn virConnectPtr)
+	(cb virConnectDomainEventCallback)
+	(opaque (:pointer :void))
+	(freecb virFreeCallback))
 
-;;(defcfun "virConnectDomainEventDeregister" :int
-;;	(conn virConnectPtr)
-;;	(cb virConnectDomainEventCallback))
+(defcfun "virConnectDomainEventDeregister" :int
+	(conn virConnectPtr)
+	(cb virConnectDomainEventCallback))
 
 (defcfun "virDomainGetJobInfo" :int
 	(domain virDomainPtr)
@@ -1704,13 +1705,13 @@
 (defcfun "virDomainAbortJob" :int
 	(domain virDomainPtr))
 
-;;(defcfun "virConnectDomainEventRegisterAny" :int
-;;	(conn virConnectPtr)
-;;	(domain virDomainPtr)
-;;	(eventID :int)
-;;	(cb virConnectDomainEventGenericCallback)
-;;	(opaque (:pointer :void)
-;;	(freecb virFreeCallback))
+(defcfun "virConnectDomainEventRegisterAny" :int
+	(conn virConnectPtr)
+	(domain virDomainPtr)
+	(eventID :int)
+	(cb virConnectDomainEventGenericCallback)
+	(opaque (:pointer :void)
+	(freecb virFreeCallback))
 
 (defcfun "virConnectDomainEventDeregisterAny" :int
 	(conn virConnectPtr)
@@ -1722,13 +1723,11 @@
 	(stream virStreamPtr)
 	(flags :uint))
 
-
 (defcfun "virDomainOpenChannel" :int
 	(domain virDomainPtr)
 	(name :string)
 	(stream virStreamPtr)
 	(flags :uint))
-
 
 (defcfun "virDomainOpenGraphics" :int
 	(domain virDomainPtr)
