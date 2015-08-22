@@ -24,6 +24,13 @@
 (defpackage #:lispvirt-event
   (:use :cl :cffi)
   (:export :virEventHandleType
+	   :virEventAddHandleFunc
+	   :virEventUpdateHandleFunc
+	   :virEventRemoveHandleFunc
+	   :virEventAddTimeoutFunc
+	   :virEventUpdateTimeoutFunc
+	   :virEventRemoveTimeoutFunc
+	   :virEventHandleCallback
 	   :virEventRegisterDefaultImpl
 	   :virEventRunDefaultImpl
 	   :virEventUpdateHandle
@@ -42,25 +49,41 @@
 	(:VIR_EVENT_HANDLE_HANGUP 8))
 
 
+;; Pointers mapping to structures.
+(defctype virEventAddHandleFunc :pointer)
+
+(defctype virEventUpdateHandleFunc :pointer)
+
+(defctype virEventRemoveHandleFunc :pointer)
+
+(defctype virEventAddTimeoutFunc :pointer)
+
+(defctype virEventUpdateTimeoutFunc :pointer)
+
+(defctype virEventRemoveTimeoutFunc :pointer)
+
+(defctype virEventHandleCallback :pointer)
+
+
 ;; Methods
-;;(defcfun "virEventRegisterImpl" :void
-;;	(addHandle virEventAddHandleFunc)
-;;	(updateHandle virEventUpdateHandleFunc)
-;;	(removeHandle virEventRemoveHandleFunc)
-;;	(addTimeout virEventAddTimeoutFunc)
-;;	(updateTimeout virEventUpdateTimeoutFunc)
-;;	(removeTimeout virEventRemoveTimeoutFunc))
+(defcfun "virEventRegisterImpl" :void
+	(addHandle virEventAddHandleFunc)
+	(updateHandle virEventUpdateHandleFunc)
+	(removeHandle virEventRemoveHandleFunc)
+	(addTimeout virEventAddTimeoutFunc)
+	(updateTimeout virEventUpdateTimeoutFunc)
+	(removeTimeout virEventRemoveTimeoutFunc))
 
 (defcfun "virEventRegisterDefaultImpl" :int)
 
 (defcfun "virEventRunDefaultImpl" :int)
 
-;;(defcfun "virEventAddHandle" :int
-;;	(fd :int)
-;;	(events :int)
-;;	(cb virEventHandleCallback)
-;;	(opaque (:pointer :void))
-;;	(ff virFreeCallback))
+(defcfun "virEventAddHandle" :int
+	(fd :int)
+	(events :int)
+	(cb virEventHandleCallback)
+	(opaque (:pointer :void))
+	(ff virFreeCallback))
 
 (defcfun "virEventUpdateHandle" :void
 	(watch :int)
