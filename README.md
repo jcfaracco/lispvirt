@@ -46,13 +46,15 @@ The installation process will add the libraries into the directory used by Commo
 Testing
 -----------------------------
 
-If you enable testing you just need to lead the module `lispvirt-tests`.
-
-It will force load the module and run the tests into the test case class.
+If you enable testing, you just need to load the module `lispvirt-tests`.
 
 To load this module you need to install the test module. There is an option into Makefile to install the module.
 
     $ sudo make install_tests
+
+There is an option inside Makefile to execute all test running a script instance and loading testing libraries.
+
+    $ make test
 
 
 Contact
