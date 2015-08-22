@@ -31,6 +31,7 @@
 	   :virEventUpdateTimeoutFunc
 	   :virEventRemoveTimeoutFunc
 	   :virEventHandleCallback
+	   :virEventTimeoutCallback
 	   :virEventRegisterDefaultImpl
 	   :virEventRunDefaultImpl
 	   :virEventUpdateHandle
@@ -63,6 +64,8 @@
 (defctype virEventRemoveTimeoutFunc :pointer)
 
 (defctype virEventHandleCallback :pointer)
+
+(defctype virEventTimeoutCallback :pointer)
 
 
 ;; Methods
