@@ -1710,7 +1710,7 @@
 	(domain virDomainPtr)
 	(eventID :int)
 	(cb virConnectDomainEventGenericCallback)
-	(opaque (:pointer :void)
+	(opaque (:pointer :void))
 	(freecb virFreeCallback))
 
 (defcfun "virConnectDomainEventDeregisterAny" :int

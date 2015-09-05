@@ -67,6 +67,8 @@
 
 (defctype virEventTimeoutCallback :pointer)
 
+(defctype virFreeCallback :pointer)
+
 
 ;; Methods
 (defcfun "virEventRegisterImpl" :void
