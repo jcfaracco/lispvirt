@@ -19,6 +19,8 @@
 ;;; along with Lispvirt.  If not, see <http://www.gnu.org/licenses/>.
 ;;;-------------------------------------------------------------------------
 
+(require 'asdf)
+
 (asdf:load-system :lispvirt)
 
 (in-package lispvirt-domain)
