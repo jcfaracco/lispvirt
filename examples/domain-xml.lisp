@@ -3,7 +3,7 @@
 ;;;
 ;;; Copyright (C) 2015 Julio Cesar Faracco
 ;;;
-;;; domain-start.lisp is part of Lispvirt.
+;;; domain-xml.lisp is part of Lispvirt.
 ;;;
 ;;; Lispvirt is free software: you can redistribute it and/or modify
 ;;; it under the terms of the GNU General Public License as published by
@@ -18,6 +18,8 @@
 ;;; You should have received a copy of the GNU General Public License
 ;;; along with Lispvirt.  If not, see <http://www.gnu.org/licenses/>.
 ;;;-------------------------------------------------------------------------
+
+(require 'asdf)
 
 (asdf:load-system :lispvirt)
 
