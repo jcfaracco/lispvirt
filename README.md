@@ -70,4 +70,4 @@ Authors
 
 lispvirt was written and is maintained by Julio C. Faracco and José Roberto B. de A. Monteiro.
 
-Copyright (C) 2015 Julio C. Faracco
+Copyright (C) 2017 Julio C. Faracco
